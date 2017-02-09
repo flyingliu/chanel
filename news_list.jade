@@ -1,0 +1,52 @@
+extends ./layout.jade
+
+block content
+    .container.mynavi
+        .row
+            ol.breadcrumb
+                li
+                    a(href="#") 首页
+                li.active 官方公告
+            h1
+                strong 官方公告 
+                span Announcement
+    .container
+
+        .row
+            .main
+                .nlist
+                    ul
+                        each v in [1,2,3,4,5]
+                            li
+                                p 
+                                    a(href="#") 2016中超第14轮比赛时间调整公告
+                                span 2016-07-30
+
+                    nav
+                        ul.pagination
+                            li
+                                a.iconfont.icon-previous-copy(href="#") 
+           
+                            li
+                                a(href="#") 1
+        
+                            li
+                                a.iconfont.icon-next(href="#") 
+            .sidebar
+               
+                h3.ty 中超积分榜
+                table.table.table-striped.table-hover
+                    thead
+                        tr 
+                            th 排名
+                            th 队名        
+                            th 轮次         
+                            th 积分        
+                    tbody
+                        each v in [1,2,3,4,5]
+                            tr
+                                td 1         
+                                td 广州恒大淘宝         
+                                td 30         
+                                td #{v}       
+                             
