@@ -15,3 +15,134 @@ a {
         color: #fff;
     }
 }
+
+dl,
+dt,
+dd,
+ul,
+ol,
+li {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    background: #fff;
+    color: #666;
+}
+
+%cen {
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+.indexmenu {
+    @extend %cen;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    .bg {
+        @extend %cen;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: url(../images/timg.jpg);
+        background-size: cover;
+        z-index: 1;
+    }
+    .black {
+        @extend %cen;
+        top: 10rem;
+        transition: all .5s ease-in;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, .5);
+        z-index: 2;
+    }
+    .list {
+        @extend %cen;
+        top: 11rem;
+        transition: all .3s ease-in;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, .8);
+        z-index: 3;
+        >.iconfont {
+            @extend %cen;
+            &.down {
+                width: .2rem;
+                transform: rotate(180deg);
+                display: none;
+            }
+            &.up {
+                position: fixed;
+                bottom: 0;
+                width: .2rem;
+            }
+        }
+        >ul {
+            li {
+                a {
+                    display: block;
+                    text-align: center;
+                    font: .2rem/2 $arial;
+                }
+            }
+        }
+    }
+    &.active {
+        .black {
+            top: 0;
+        }
+        .list {
+            top: 1rem;
+            >.iconfont {
+                &.down {
+                    display: block;
+                }
+                &.up {
+                    display: none;
+                }
+            }
+        }
+    }
+}
+
+.newslist {
+    height: 100%;
+    .cap {
+        height: 100%;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        pointer-events: none;
+        display: none;
+        background-color: rgba(0, 0, 0, 0);
+    }
+}
+
+.header,
+.footer {
+    display: none;
+}
+
+#repeat-watermark {
+    position: fixed;
+    z-index: 9;
+    top: 0;
+    pointer-events: none;
+    display: none;
+    background: rgba(0, 0, 0, 0);
+}

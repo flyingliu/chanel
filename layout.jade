@@ -5,20 +5,16 @@ html(lang="en")
         title 上海绿地申花足球俱乐部
         link(rel="icon" href="/favicon.ico")
         meta(name="viewport" content="user-scalable=yes,width=device-width, maximum-scale=1.0, minimum-scale=0.2")
-        link(rel="stylesheet", href="/app/static/bootstrap/css/bootstrap.css")
-        link(rel="stylesheet", href="/app/static/iconfont/iconfont.css")
+        script(src="app/js/view.js")
+        link(rel="stylesheet", href="//at.alicdn.com/t/font_0cq9oap8obfq1tt9.css")
         link(rel="stylesheet", href="/app/static/css/main.css")
-        script(src="/app/static/js/jquery.min.js")
-        script(src="/app/static/bootstrap/js/bootstrap.min.js")
+        script(src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js")
         script(src="//cdn.bootcss.com/layer/3.0.1/layer.min.js")
-        script(src="/app/static/js/vue.min.js")
-        script(src="/app/static/js/iscroll.min.js")
-        script(src="/app/static/js/jwplayer.js") 
+        script(src="/app/static/js/watermark.js")        
         script(src="/app/static/js/main.js")
 
-
   body
-        <link rel="import" href="_header.jade?__inline">
-        .maincon
-            block content
-        <link rel="import" href="_footer.jade?__inline">
+    != partial("_header", { title: "Contact me" })
+
+    block content
+    != partial("_footer", { title: "Contact me" })
