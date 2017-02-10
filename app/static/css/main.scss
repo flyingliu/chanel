@@ -30,20 +30,20 @@ body {
     margin: 0;
 }
 
+[v-cloak] {
+    display: none;
+}
+
 body {
     background: #fff;
     color: #000;
     font: .2rem/1.8 $arial;
-    >.header,
-    >.footer {
-        display: none;
-    }
 }
 
 .header {
     height: .94rem;
     border-bottom: .07rem solid #000;
-    position: absolute;
+    position: fixed;
     top: 0;
     background: #fff;
     z-index: 9;
@@ -158,6 +158,7 @@ body {
 }
 
 .newsdetail {
+    padding: 1rem 0;
     .head {
         padding: .2rem;
         border-bottom: .01rem solid #e7e7e7;

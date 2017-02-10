@@ -1,17 +1,17 @@
 extends ./layout.jade
 
 block content
-    .newslist
-        .header 
-            a.prev(href="#") 返回首页
-            a.next(href="#") 下一页
-        .onelist
+    .header 
+        a.prev(href="#") 返回首页
+        a.next(href="#") 下一页
+    .newslist#newslist
+
+        .onelist(v-cloak)
             ul
-                each v in [1,2,3,4,5,6]
-                    li
-                        a(href="news_detail.html")
-                            img(src="/app/static/images/t1.jpg", alt="")
-                            h5  Lorem ipsum dolor sit amet.  
-                            p.desc   Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad, voluptatem. ipsum dolor sit. 
-                            p.time 12/13/2017
+                li(v-for="item in list")
+                    a(href="news_detail.html")
+                        img(src="/app/static/images/t1.jpg", alt="")
+                        h5  {{item.title}}
+                        p.desc {{item.desc}}
+                        p.time {{item.time}}
     script(src="/app/static/js/newslist.js")
