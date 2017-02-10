@@ -2,11 +2,16 @@ extends ./layout.jade
 
 block content
     .newslist
-        .news
-            each v in [1,2,3,4,5,6]
-                li
-                    a(href="http://baidu.com")
-                        h1  Lorem ipsum dolor sit amet.  
-                        p  Lorem ipsum dolor sit. 
-                        span 12/13/2017
-        .cap
+        .header 
+            a.prev(href="#") 返回首页
+            a.next(href="#") 下一页
+        .onelist
+            ul
+                each v in [1,2,3,4,5,6]
+                    li
+                        a(href="news_detail.html")
+                            img(src="/app/static/images/t1.jpg", alt="")
+                            h5  Lorem ipsum dolor sit amet.  
+                            p.desc   Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad, voluptatem. ipsum dolor sit. 
+                            p.time 12/13/2017
+    script(src="/app/static/js/newslist.js")

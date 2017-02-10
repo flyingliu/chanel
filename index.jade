@@ -1,15 +1,16 @@
 extends ./layout.jade
 
 block content
-    .indexmenu
+    .indexmenu.active
         .bg
         .black
+        i.iconfont.icon-arrow.down
+        i.iconfont.icon-arrow.up
         .list
-            i.iconfont.icon-arrow.down
-            i.iconfont.icon-arrow.up
+
             ul
                 li
-                    a(href="#") 最新快讯
+                    a(href="news_list.html") 最新快讯
                 li
                     a(href="#") 产品
                 li
