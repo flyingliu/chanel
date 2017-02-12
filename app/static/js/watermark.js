@@ -5,11 +5,11 @@ $(function() {
         self.opt = {
             docWidth: $(document).width(),
             docHeight: $(document).height(),
-            fontStyle: "20px 黑体", //水印字体设置
+            fontStyle: "24px 黑体", //水印字体设置
             rotateAngle: -20 * Math.PI / 180, //水印字体倾斜角度设置
             fontColor: "rgba(0, 0, 0, .1)", //水印字体颜色设置
-            firstLinePositionX: -20, //canvas第一行文字起始X坐标
-            firstLinePositionY: 80, //Y
+            firstLinePositionX: 100, //canvas第一行文字起始X坐标
+            firstLinePositionY: 150, //Y
             SecondLinePositionX: 0, //canvas第二行文字起始X坐标
             SecondLinePositionY: 70 //Y
         };
@@ -69,9 +69,11 @@ $(function() {
     };
 
 
-    var tpl = '<canvas id = "watermark" width = "160px"  height = "100px" style="display:none;"></canvas>' + '<canvas id = "repeat-watermark"></canvas>';
+    var tpl = '<canvas id = "watermark" width = "375px"  height = "200px" style="display:none;"></canvas>' + '<canvas id = "repeat-watermark"></canvas>';
+    if (mymark) {
+        new Watermark($("body"), { watermark: mymark });
 
-    new Watermark($("body"), { watermark: "flying" });
+    }
 
 
 })

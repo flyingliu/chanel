@@ -1,17 +1,19 @@
 extends ./layout.jade
 
 block content
-    .header 
+    .header.noline 
         a.prev(href="#") 返回首页
-        a.next(href="#") 下一页
     .newslist#newslist
 
         .onelist(v-cloak)
             ul
                 li(v-for="item in list")
-                    a(href="news_detail.html")
-                        img(src="/app/static/images/t1.jpg", alt="")
+                    a(:href="item.link")
+                        img(:src="item.httpPostImg", alt="")
                         h5  {{item.title}}
-                        p.desc {{item.desc}}
-                        p.time {{item.time}}
+                        p.desc(v-if="item.description") {{item.description}}
+                        p.time {{item.update_time}}
+    script.
+        var mymark = "abcsdfds.dfasd";
+    script(src="/app/static/js/watermark.js")
     script(src="/app/static/js/newslist.js")

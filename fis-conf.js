@@ -1,25 +1,23 @@
-
-
 fis.match('*.scss', {
     rExt: '.css',
-    parser: fis.plugin('sass', {compressed : true}),
+    parser: fis.plugin('sass', { compressed: true }),
     postprocessor: fis.plugin('autoprefixer', {
         // browsers: ['> 1% in CN', "last 2 versions", "IE >= 8"] // pc
         browsers: ["Android >= 4", "ChromeAndroid > 1%", "iOS >= 6"] // wap
     })
-  });
+});
 
 fis.match('*.jade', {
-  rExt: '.html',
-  loaderLang: 'html',
-  parser: fis.plugin('jade', {
-    pretty  : true
-  })
+    rExt: '.html',
+    loaderLang: 'html',
+    parser: fis.plugin('jade', {
+        pretty: true
+    })
 });
 
 
 fis.match('/app/js/**.js', {
-  isMod: true
+    isMod: true
 })
 
 
@@ -53,8 +51,8 @@ fis.media('prod')
     //     url:'$0'
     // })
     .match('/app/static/**', {
-        release: './../shenhua/Web/$0',
-        url:'$0'
+        release: './../chanel/Web/$0',
+        url: '$0'
     })
     // .match('/y16c11comment_index.jade', {
     //     release: './../avon/Web/Views/default/activity/y16c11comment/$0',
@@ -64,14 +62,14 @@ fis.media('prod')
     //     release: './../ido/Web/Views/default/sign/$0',
     //     url:'$0'
     // })
-    
-    
 
-    // .match('*', {
-    //   deploy: fis.plugin('local-deliver', {
-    //     to: '/Users/liufeilai/site/avona/Web/'
-    //   })
-    // })
+
+
+// .match('*', {
+//   deploy: fis.plugin('local-deliver', {
+//     to: '/Users/liufeilai/site/avona/Web/'
+//   })
+// })
 
 
 // fis.hook('amd'{
@@ -82,7 +80,7 @@ fis.media('prod')
 // })
 
 // fis.hook('relative'); 
- 
+
 // fis.match('**', { relative: true })
 
 // fis.match('::package', {

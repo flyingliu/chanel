@@ -28,10 +28,19 @@ body {
     height: 100%;
     padding: 0;
     margin: 0;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 [v-cloak] {
     display: none;
+}
+
+img {
+    -webkit-touch-callout: none;
 }
 
 body {
@@ -48,6 +57,9 @@ body {
     background: #fff;
     z-index: 9;
     width: 100%;
+    &.noline {
+        border-bottom: .07rem solid rgba(0, 0, 0, 0);
+    }
     a {
         color: #000;
         font: .22rem/.94rem $arial;
@@ -107,7 +119,7 @@ body {
         }
         &.up {
             position: fixed;
-            bottom: .2rem;
+            bottom: .05rem;
         }
     }
     .list {
@@ -182,6 +194,7 @@ body {
         }
     }
     .detailinfo {
+        padding: .2rem;
         * {
             max-width: 100%;
         }
@@ -201,7 +214,7 @@ body {
         ul {
             padding: 1rem .2rem;
             li {
-                border-bottom: .03rem solid #000;
+                border-bottom: .07rem solid #000;
                 padding: .45rem 0 .4rem 0;
                 text-align: center;
                 img {
@@ -212,8 +225,8 @@ body {
                     margin: 0;
                 }
                 p {
-                    font: .18rem/.4rem $arial;
-                    height: .4rem;
+                    font: .18rem/.3rem $arial;
+                    height: .3rem;
                     overflow: hidden;
                     text-overflow: ellipsis;
                     display: -webkit-box;
@@ -223,6 +236,9 @@ body {
                 }
                 a {
                     color: #000;
+                }
+                &:last-child {
+                    border-bottom: .07rem solid rgba(0, 0, 0, 0);
                 }
             }
         }
@@ -234,6 +250,5 @@ body {
     z-index: 9;
     top: 0;
     pointer-events: none;
-    display: none;
     background: rgba(0, 0, 0, 0);
 }
