@@ -70,6 +70,18 @@ body {
         &.next {
             right: .2rem;
         }
+        &.btn {
+            top: .28rem;
+            background: #000;
+            line-height: .36rem;
+            color: #fff;
+            padding: 0 .1rem;
+            &:after {
+                content: " \e620";
+                font-family: "iconfont";
+                font-size: .2rem;
+            }
+        }
     }
 }
 
