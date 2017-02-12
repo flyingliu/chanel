@@ -80,6 +80,15 @@ body {
     margin: auto;
 }
 
+.loading {
+    width: 100%;
+    height: 100%;
+    @extend %cen;
+    background: url(../images/logo.png) rgba(0, 0, 0, 1) center center no-repeat;
+    background-size: 2.95rem .46rem;
+    z-index: 999;
+}
+
 .indexmenu {
     @extend %cen;
     top: 0;
@@ -94,6 +103,9 @@ body {
         background: url(../images/timg.jpg);
         background-size: cover;
         z-index: 1;
+        >img {
+            width: 100%;
+        }
     }
     .black {
         @extend %cen;
@@ -169,11 +181,102 @@ body {
     }
 }
 
+.product {
+    padding: 1rem 0;
+    dl {
+        dd {
+            .tab {
+                padding-top: .18rem;
+                text-align: center;
+                >a {
+                    font: .22rem/.58rem $arial;
+                    padding: 0 .18rem;
+                    display: inline-block;
+                    color: #000;
+                }
+            }
+            .plist {
+                border-bottom: .16rem solid #f7f7f7;
+                box-shadow: 0 1px 0 0 #d1d1d1;
+                text-align: center;
+                span {
+                    display: inline-block;
+                    width: 2.54rem;
+                    height: 2.54rem;
+                    vertical-align: bottom;
+                    width: 33.33%;
+                    img {
+                        width: 2.54rem;
+                        height: 2.54rem;
+                        display: block;
+                    }
+                }
+            }
+            .info {
+                position: relative;
+                height: 1.65rem;
+                span {
+                    display: block;
+                    &.title {
+                        font: .34rem/1.2 $arial;
+                        position: absolute;
+                        top: .2rem;
+                        left: .4rem;
+                    }
+                    &.code {
+                        font: .18rem/1.2 $arial;
+                        color: #888;
+                        position: absolute;
+                        top: .66rem;
+                        left: .4rem;
+                    }
+                    &.price {
+                        font: .24rem/1.2 $arial;
+                        position: absolute;
+                        left: .4rem;
+                        top: 1.08rem;
+                    }
+                    &.type {
+                        top: .2rem;
+                        font: .26rem/1.2 $arial;
+                        position: absolute;
+                        right: .4rem;
+                    }
+                    &.color {
+                        font: .26rem/1.2 $arial;
+                        position: absolute;
+                        top: .55rem;
+                        right: .4rem;
+                    }
+                    &.wh {
+                        font: .22rem/1.2 $arial;
+                        position: absolute;
+                        right: .4rem;
+                        top: 1.08rem;
+                    }
+                }
+            }
+            .fimg {
+                img {
+                    width: 100%;
+                }
+            }
+        }
+    }
+}
+
+.price {
+    &:before {
+        content: "\e63a";
+        font-family: "iconfont";
+    }
+}
+
 .newsdetail {
     padding: 1rem 0;
     .head {
         padding: .2rem;
-        border-bottom: .01rem solid #e7e7e7;
+        border-bottom: 1px solid #e7e7e7;
         margin-bottom: .2rem;
         h1 {
             font: bold .26rem/.5rem $arial;

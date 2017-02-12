@@ -1,0 +1,28 @@
+extends ./layout.jade
+
+block content
+    .header
+        a.prev(href="#") 返回首页       
+        a.next.btn(href="#") 添加
+
+    .product
+        dl
+            dd
+                .tab
+                    a(href="#", title="黑色") 黑色                     
+                    a(href="#", title="白色") 白色
+                .plist
+                    each v in [1,2,3]
+                        span
+                            img(src="/app/static/images/bao.jpg", alt="")
+                .info
+                    span.title 口盖包配以手柄
+                    span.code A91810 Y61477 C0200
+                    span.price 23,500 
+
+                    span.type 羊皮革与钌色金属
+                    span.color 黒与白
+                    span.wh 15 x 20 x 8 Cm 
+
+                .fimg
+                    img(src="/app/static/images/timg.jpg", alt="") 
