@@ -19,9 +19,7 @@ $(function() {
                 } else if (direction == "up") {
                     indexdom.addClass("active");
                 }
-            },
-            //Default is 75px, set to 0 for demo so any distance triggers swipe
-            threshold: 0
+            }
         });
 
         indexdom.on("click", ".iconfont", function() {

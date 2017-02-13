@@ -28,11 +28,6 @@ body {
     height: 100%;
     padding: 0;
     margin: 0;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
 }
 
 [v-cloak] {
@@ -40,7 +35,8 @@ body {
 }
 
 img {
-    -webkit-touch-callout: none;
+    pointer-events: none;
+    -webkit-touch-callout: nons
 }
 
 body {
@@ -271,6 +267,7 @@ body {
             .fimg {
                 img {
                     width: 100%;
+                    display: block;
                 }
             }
         }
@@ -350,11 +347,33 @@ body {
                     margin: 0;
                 }
                 a {
+                    display: block;
                     color: #000;
                 }
                 &:last-child {
                     border-bottom: .07rem solid rgba(0, 0, 0, 0);
                 }
+            }
+        }
+    }
+}
+
+.grid {
+    h4 {
+        font: .3rem/.7rem $arial;
+        padding-top: .25rem;
+        text-align: center;
+        margin: 0 .2rem .32rem .2rem;
+        border-bottom: 1px solid #000;
+    }
+    ul {
+        position: relative;
+        li {
+            height: auto;
+            display: inline-block;
+            >img {
+                width: 3.45rem;
+                height: auto;
             }
         }
     }
