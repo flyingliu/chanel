@@ -9,9 +9,7 @@ $(function() {
             rotateAngle: -20 * Math.PI / 180, //水印字体倾斜角度设置
             fontColor: "rgba(0, 0, 0, .1)", //水印字体颜色设置
             firstLinePositionX: 100, //canvas第一行文字起始X坐标
-            firstLinePositionY: 150, //Y
-            SecondLinePositionX: 0, //canvas第二行文字起始X坐标
-            SecondLinePositionY: 70 //Y
+            firstLinePositionY: 150
         };
         $.extend(self.opt, options);
         self.render(container);
@@ -71,7 +69,8 @@ $(function() {
 
     var tpl = '<canvas id = "watermark" width = "375px"  height = "200px" style="display:none;"></canvas>' + '<canvas id = "repeat-watermark"></canvas>';
     if (mymark) {
-        new Watermark($("body"), { watermark: mymark });
+        var firstx = 150 - mymark.length * 7.5;
+        new Watermark($("body"), { watermark: mymark, firstLinePositionX: firstx });
 
     }
 

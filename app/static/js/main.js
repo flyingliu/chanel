@@ -22,7 +22,7 @@ $(function() {
             }
         });
 
-        indexdom.on("click", ".iconfont", function() {
+        indexdom.on("click", ".iconfont,.liup", function() {
             indexdom.toggleClass("active");
         });
     };

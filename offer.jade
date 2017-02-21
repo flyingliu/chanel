@@ -1,46 +1,48 @@
 extends ./layout.jade
 
 block content
-    .header
-        a.prev(href="#") 返回首页       
-        a.next.btn(href="#") 添加
+    #offer 
+        .header
+            a.prev(href="#") 返回首页       
+            a.next.btn(href="#" @click="addbuy") 添加
 
-    .product
-        dl
-            dd
-                .tab
-                    a(href="#", title="黑色") 黑色                     
-                    a(href="#", title="白色") 白色
-                .plist
-                    each v in [1,2,3]
+        .product
+            dl
+                dd
+                    .tab
+                        a.active(href="#", title="黑色", @click="changtype('black')") 黑色                     
+                        a(href="#", title="白色", @click="changtype('white')") 白色
+                    .plist
                         span
-                            img(src="/app/static/images/bao.jpg", alt="")
-                .info
-                    span.title 口盖包配以手柄
-                    span.code A91810 Y61477 C0200
-                    span.price 23,500 
+                            img(src="/app/static/images/b2.jpg", alt="")
+                    .info
+                        span.error 该产品没有图片，不能添加
+                        span.title {{list.name}}
+                        span.code {{list.model_no}}
+                        span.price {{list.price}}
+                        span.type {{list.description}}
+                        span.wh {{list.spec}}
 
-                    span.type 羊皮革与钌色金属
-                    span.color 黒与白
-                    span.wh 15 x 20 x 8 Cm 
-
-                .fimg
-                    img(src="/app/static/images/timg.jpg", alt="") 
-                .grid
-                    h4 in the press
-                    ul#gul
-                        li.box
-                            img(src="/app/static/images/timg.jpg", alt="")
-                        li.box
-                            img(src="/app/static/images/bao.jpg", alt="")
-                        li.box
-                            img(src="/app/static/images/t1.jpg", alt="")
-                        li.box
-                            img(src="/app/static/images/timg.jpg", alt="")
-                        li.box
-                            img(src="/app/static/images/bao.jpg", alt="")
-                        li.box
-                            img(src="/app/static/images/t1.jpg", alt="")    
-    script(src="/app/static/js/wook.js")
+                    .fimg
+                        img(src="/app/static/images/t1.jpg", alt="") 
+                //- .grid
+                //-     h4 in the press
+                //-     ul#gul
+                //-         li.box
+                //-             img(src="/app/static/images/timg.jpg", alt="")
+                //-         li.box
+                //-             img(src="/app/static/images/bao.jpg", alt="")
+                //-         li.box
+                //-             img(src="/app/static/images/t1.jpg", alt="")
+                //-         li.box
+                //-             img(src="/app/static/images/timg.jpg", alt="")
+                //-         li.box
+                //-             img(src="/app/static/images/bao.jpg", alt="")
+                //-         li.box
+                //-             img(src="/app/static/images/t1.jpg", alt="")    
+    //- script(src="/app/static/js/wook.js")
+    script.
+        var mymark = "abcsdfds.dfasd";
+    script(src="/app/static/js/watermark.js")
 
     script(src="/app/static/js/offer.js")

@@ -1,21 +1,28 @@
 extends ./layout.jade
 
 block content
-    .header.tabhead
-        a.prev(href="#") 返回首页  
-        ul.tab
-            li.active 最新培训
-            li 主题
-            li puzzle&tips
-                
-                 
+    .trainlist#trainlist
+        .header.tabhead
+            a.prev(href="#") 返回首页  
+            ul.tab
+                li(@click="tabs(1)",:class='{active:mytab==1}') 最新培训
+                li(@click="tabs(2)",:class='{active:mytab==2}') 主题
+                li(@click="tabs(3)",:class='{active:mytab==3}') puzzle&tips
+                    
+                    
 
-    .train
-        dl
-            dd
-                .title
-                    span.desc chapter1
-                    span.tit 7种背Gabrielle的方式
-                    span.time 02/15/2017  14:00
-                .info
-                    img(src="/app/static/images/train.jpg", alt="")
+        .train(:class='{nodata:list.length==0}')
+            dl(v-cloak)
+                dd(v-for="item in list")
+                    a(href="train_detail.html")
+                        .title(:class='{nodesc:!item.haveLittle}')
+                            span.desc {{item.little_title}}
+                            span.tit {{item.title}}
+                            span.time {{item.update_time}}
+                        .info
+                            img(:src="item.httpPostImg", alt="")
+
+    script.
+        var mymark = "abcsdfds.dfasd";
+    script(src="/app/static/js/watermark.js")
+    script(src="/app/static/js/train.js")                            
