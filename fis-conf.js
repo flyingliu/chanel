@@ -1,6 +1,6 @@
 fis.match('*.scss', {
     rExt: '.css',
-    parser: fis.plugin('sass', { compressed: true }),
+    parser: fis.plugin('node-sass', { compressed: true }),
     postprocessor: fis.plugin('autoprefixer', {
         // browsers: ['> 1% in CN', "last 2 versions", "IE >= 8"] // pc
         browsers: ["Android >= 4", "ChromeAndroid > 1%", "iOS >= 6"] // wap
