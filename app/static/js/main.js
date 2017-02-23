@@ -38,3 +38,23 @@ loadingFn.hide = function() {
         $(".loading").remove();
     }
 }
+
+function getQueryString(name, url) {
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+    if (url) {
+        try {
+            url = url.split("?")[1];
+            var r = url.match(reg);
+            if (r != null)
+                return decodeURI(r[2]);
+            return null;
+        } catch (e) {
+            return null;
+        }
+    } else {
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null)
+            return decodeURI(r[2]);
+        return null;
+    }
+}

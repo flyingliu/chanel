@@ -11,7 +11,7 @@ block content
                 li(v-for="item in list" v-if="item.productList.length>0")
                     h5 {{item.name}}
                     div
-                        a(href="#" v-for="v in item.productList" ) 
+                        a(:href="'product_detail.html?pid='+v.id" v-for="v in item.productList" ) 
                             img(:src="v.defaultImg", alt="")
 
         .filter

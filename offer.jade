@@ -1,22 +1,25 @@
 extends ./layout.jade
 
 block content
-    #offer 
+    #offer(@click="hideNotice")
+        i.noticeup(v-if="isNotice")
         .header
             a.prev(href="#") 返回首页       
-            a.next.btn(href="#" @click="addbuy") 添加
+            a.next.btn(v-if="!isError" href="#" @click="addbuy") 添加
 
         .product
             dl
-                dd
+                dd(v-cloak)
                     .tab
-                        a.active(href="#", title="黑色", @click="changtype('black')") 黑色                     
-                        a(href="#", title="白色", @click="changtype('white')") 白色
+                        a(v-for="(item, index) in list.colorList" @click="changtype(index)" v-bind:class="{active:index == currIndex}") {{item.color}} 
                     .plist
-                        span
-                            img(src="/app/static/images/b2.jpg", alt="")
+                        span(v-if="!isError")
+                            img(:src="curr.colorImg")
+                        span(v-else="") 
+                            img(:src="mydefault.colorImg")
+
                     .info
-                        span.error 该产品没有图片，不能添加
+                        span.error(v-if="isError") 该产品没有图片，不能添加
                         span.title {{list.name}}
                         span.code {{list.model_no}}
                         span.price {{list.price}}
@@ -24,7 +27,8 @@ block content
                         span.wh {{list.spec}}
 
                     .fimg
-                        img(src="/app/static/images/t1.jpg", alt="") 
+                        img(v-for="(item, index) in list.imageList" v-bind:src="item.httpPostImg" alt="")
+                        video(v-for="(item, index) in list.videoList" v-bind:src="item.videoArr.url" controls="controls") 
                 //- .grid
                 //-     h4 in the press
                 //-     ul#gul
@@ -41,6 +45,7 @@ block content
                 //-         li.box
                 //-             img(src="/app/static/images/t1.jpg", alt="")    
     //- script(src="/app/static/js/wook.js")
+
     script.
         var mymark = "abcsdfds.dfasd";
     script(src="/app/static/js/watermark.js")
