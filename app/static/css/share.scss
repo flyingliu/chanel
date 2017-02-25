@@ -1,0 +1,267 @@
+@import "common";
+.share {
+    color: #000;
+}
+
+.historylist {
+    ul {
+        padding: 1.5rem 0 0 .48rem;
+        li {
+            border: 1px solid #000;
+            border-left: .1rem solid #000;
+            border-right-width: 0;
+            height: 1.58rem;
+            margin-bottom: .55rem;
+            position: relative;
+            i.dot {
+                position: absolute;
+                width: .4rem;
+                height: .4rem;
+                background: url(../images/dian.png) no-repeat;
+                background-size: cover;
+                right: .4rem;
+                top: .65rem;
+            }
+            p {
+                margin: 0;
+                position: absolute;
+                left: .4rem;
+                font: .26rem/1 $arial;
+                &.to {
+                    top: .15rem;
+                }
+                &.name {
+                    top: .45rem;
+                }
+                &.time {
+                    bottom: .1rem;
+                }
+            }
+        }
+    }
+}
+
+.btnfull {
+    background: #000;
+    color: #fff;
+    height: 1.3rem;
+    font: .26rem/1.3rem $chanel;
+    text-align: center;
+    display: block;
+}
+
+.shareproduct {
+    dl {
+        dd {
+            .plist {
+                padding: 0 .4rem;
+                img {
+                    width: 100%;
+                }
+            }
+            .info {
+                padding: 0 0 .6rem 0;
+                span {
+                    display: block;
+                    text-align: center;
+                    &.title {
+                        font: .36rem/2 $arial;
+                    }
+                    &.type {
+                        font: .28rem/1.8 $arial;
+                    }
+                    &.code {
+                        font: .2rem/1.8 $arial;
+                        color: #a0a0a0;
+                    }
+                    &.wh {
+                        font: .2rem/1.8 $chanel;
+                        color: #a0a0a0;
+                    }
+                    &.price {
+                        font: .24rem/1.8 $arial;
+                        color: #000;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.shareform {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    color: #fff;
+    z-index: 999;
+    .header {
+        background: #000;
+        a {
+            color: #fff;
+        }
+        &:before {
+            content: "";
+            border-bottom: 1px solid #fff;
+            width: 7.1rem;
+            height: 0;
+            position: absolute;
+            bottom: 0;
+            left: .2rem;
+        }
+    }
+    .form {
+        height: 5rem;
+        margin: auto;
+        top: 0;
+        bottom: 0;
+        color: #fff;
+        position: absolute;
+        width: 100%;
+        dl {
+            dt {
+                font: .26rem/.5rem $arial;
+                text-align: center;
+                padding: 0 0 .5rem 0;
+            }
+            dd {
+                padding: 0 .4rem;
+                &.last {
+                    padding: 1rem 0 0 0;
+                    a {
+                        color: #fff;
+                        display: inline-block;
+                        width: 50%;
+                        text-align: center;
+                        height: .5rem;
+                        font: .26rem/.5rem $arial;
+                    }
+                }
+                >div {
+                    border: 1px solid #fff;
+                    height: .8rem;
+                    margin-bottom: .3rem;
+                    position: relative;
+                    padding: 0 0 0 1rem;
+                    >i {
+                        font: .26rem/.8rem $arial;
+                        position: absolute;
+                        left: 0;
+                        width: 1rem;
+                        text-align: center;
+                    }
+                    >input {
+                        width: 100%;
+                        height: .8rem;
+                        font: .26rem/.38rem $arial;
+                        margin: 0;
+                        padding: .2rem;
+                        border: 0;
+                        box-sizing: border-box;
+                        background-color: rgba(0, 0, 0, 0);
+                        color: #fff;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.grid {
+    position: relative;
+    padding-top: 1.65rem;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    &.nodata {
+        * {
+            display: none;
+        }
+        &:before {
+            content: 'coming soon!';
+            height: .5rem;
+            width: 100%;
+            position: absolute;
+            bottom: 0;
+            margin: auto;
+            top: 0;
+            font: .3rem/.5rem $chanel;
+            text-align: center;
+        }
+    }
+    h1 {
+        font: .24rem/.95rem $arial;
+        text-align: center;
+        width: 100%;
+        top: 1.65rem;
+        margin: 0;
+        z-index: 99;
+        a {
+            border-bottom: 1px solid #000;
+        }
+        &.statusa {
+            display: none;
+        }
+    }
+    h4 {
+        font: .3rem/.7rem chanel, Helvetica, \5FAE\8F6F\96C5\9ED1, sans-serif;
+        padding-top: .25rem;
+        text-align: center;
+        margin: 0 0.2rem 0.32rem 0.2rem;
+        border-bottom: 1px solid $black;
+    }
+    ul {
+        position: relative;
+        li {
+            height: auto;
+            display: inline-block;
+            >img {
+                width: 3.45rem;
+                height: auto;
+            }
+            >i {
+                width: .27rem;
+                height: .27rem;
+                position: absolute;
+                z-index: 99;
+                background: url(../images/pop.png) no-repeat;
+                background-size: cover;
+                right: 0;
+                top: 0;
+                display: none;
+            }
+        }
+        &.mypro {
+            font-size: 0;
+            padding: 0 .2rem;
+            li {
+                width: 33.333%;
+                position: relative;
+                a {
+                    display: block;
+                }
+                img {
+                    width: 100%;
+                }
+            }
+        }
+    }
+    &.edit {
+        h1 {
+            &.statusa {
+                display: block;
+            }
+            &.statusb {
+                display: none;
+            }
+        }
+        ul {
+            li {
+                >i {
+                    display: block;
+                }
+            }
+        }
+    }
+}

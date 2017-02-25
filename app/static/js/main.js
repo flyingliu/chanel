@@ -28,9 +28,20 @@ $(function() {
     };
 })
 
+function msg(msg) {
+    //提示
+    layer.open({
+        content: msg,
+        skin: 'msg',
+        time: 2
+    });
+}
+
+
 function Loading() {
     $("body").append('<div class="loading"></div');
 }
+
 
 var loadingFn = Loading.prototype;
 loadingFn.hide = function() {

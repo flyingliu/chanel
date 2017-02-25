@@ -1,0 +1,47 @@
+   //colors
+   $white: #fff;
+   $black: #000;
+   $black_56: rgba(0, 0, 0, 0.56);
+   $black_86: rgba(0, 0, 0, 0.86);
+   $color_black_haze_approx: #f7f7f7;
+   $color_celeste_approx: #d1d1d1;
+   $color_suva_gray_approx: #888;
+   $color_mercury_approx: #e7e7e7;
+   //fonts
+   $font_0: iconfont;
+   $arial:Helvetica,
+   \5FAE\8F6F\96C5\9ED1,
+   sans-serif;
+   $chanel:chanel,
+   Helvetica,
+   \5FAE\8F6F\96C5\9ED1,
+   sans-serif;
+   //urls
+   $url_0: url(/app/static/images/logo.png);
+   $url_1: url(/app/static/images/timg.jpg);
+   //@extend-elements
+   //original selectors
+   //dl, dt, dd, ul, ol, li
+   %extend_1 {
+       padding: 0;
+       margin: 0;
+       list-style: none;
+   }
+   
+   //original selectors
+   //html, body
+   %extend_2 {
+       width: 100%;
+       height: 100%;
+       padding: 0;
+       margin: 0;
+   }
+   
+   //original selectors
+   //.loading, .indexmenu, .indexmenu .bg, .indexmenu .black, .indexmenu >.iconfont, .indexmenu .list
+   %extend_3 {
+       position: absolute;
+       left: 0;
+       right: 0;
+       margin: auto;
+   }

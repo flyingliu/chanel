@@ -1,0 +1,20 @@
+extends ./layout.jade
+
+block content
+    .history#history
+        .header
+            a.prev(href="share_showlist.html") 返回 
+
+        .historylist(:class='{nodata:list.length==0}')
+            ul
+                each v in [1,2,3,4]
+                    li
+                        p.to TO  
+                        p.name 王楚楚 女士
+                        p.time 02/15/2017
+                        i.dot
+
+    script.
+        var mymark = "";
+    script(src="/app/static/js/watermark.js")
+    script(src="/app/static/js/history.js")  

@@ -1,5 +1,56 @@
 extends ./layout.jade
 
 block content
-    .header.noline 
-        a.prev(href="#") 返回首页
+    .share#share
+        .header.tabhead
+            a.prev(href="#") 首页  
+            a.next(href="share_history") 历史
+            ul.tab.twoli
+                li(@click="tabs(1)",:class='{active:mytab==1}') 产品
+                li(@click="tabs(2)",:class='{active:mytab==2}') 媒介传讯
+                    
+                    
+        
+        .grid.sharepro(:class='{nodata:list.length==0,edit:isEdit}' v-if="mytab==1")
+            h1.statusa
+                a(@click="editFn(false)") 完成
+            h1.statusb
+                a(@click="editFn(true)") 编辑
+            .gridcon
+                ul.mypro
+                    li.box(v-for="(item,index) in list")
+                        a(href="share_productDetail.html")
+                            img(:src="item.httpPostImg", alt="")
+                        i.delete(@click="deleteFn(item.pid, item.colorid, 1,index)")
+
+        
+        .grid(v-if="mytab==2" v-bind:class="{edit:isEdit,nodata:true}")
+            h1.statusa
+                a(@click="editFn(false)") 完成
+            h1.statusb
+                a(@click="editFn(true)") 编辑
+            .gridcon
+                ul.mymedia#gul
+                    li.box
+                        img(src="/app/static/images/timg.jpg", alt="")
+                        i.delete
+                    li.box
+                        img(src="/app/static/images/bao.jpg", alt="")
+                        i.delete
+                    li.box
+                        img(src="/app/static/images/t1.jpg", alt="")
+                        i.delete
+                    li.box
+                        img(src="/app/static/images/timg.jpg", alt="")
+                        i.delete
+                    li.box
+                        img(src="/app/static/images/bao.jpg", alt="")
+                        i.delete
+                    li.box
+                        img(src="/app/static/images/t1.jpg", alt="") 
+                        i.delete   
+    script(src="/app/static/js/wook.js")
+    script.
+        var mymark = "";
+    script(src="/app/static/js/watermark.js")
+    script(src="/app/static/js/share.js")  

@@ -23,12 +23,12 @@ block content
                         span.title {{list.name}}
                         span.code {{list.model_no}}
                         span.price {{list.price}}
-                        span.type {{list.description}}
+                        span.type(v-html="list.description")
                         span.wh {{list.spec}}
 
                     .fimg
                         img(v-for="(item, index) in list.imageList" v-bind:src="item.httpPostImg" alt="")
-                        video(v-for="(item, index) in list.videoList" v-bind:src="item.videoArr.url" controls="controls") 
+                        video(v-for="(item, index) in list.videoList" v-bind:src="item.videoArr.url" v-bind:poster="item.videoArr.httpPostImg" controls="controls") 
                 //- .grid
                 //-     h4 in the press
                 //-     ul#gul

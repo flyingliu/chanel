@@ -1,23 +1,20 @@
 $(function() {
 
-
     // getList
-    var domain = location.port == "8080" ? "//devch.minuteschina.com/" : "";
-    var getList = domain + '/product_getDetail.html';
-    var addShare = domain + '/share_add.html';
+    var domain = location.port == "8080" ? "//devch.minuteschina.com" : "";
+    var getList = domain + '/share_getList.html';
+    var deleteShare = domain + '/share_del.html';
     var tmpPage = 1;
     var myScroll;
     var pid = getQueryString("pid");
 
     var vm = new Vue({
-        el: "#offer",
+        el: "#share",
         data: {
             list: {},
             curr: {},
-            mydefault: {},
-            currIndex: 0,
-            isError: false,
-            isNotice: true
+            mytab: 1,
+            isEdit: false
         },
         methods: {
             addbuy: function() {
@@ -25,6 +22,26 @@ $(function() {
             },
             hideNotice: function() {
                 this.isNotice = false;
+
+            },
+            editFn: function(flag) {
+                this.isEdit = flag;
+            },
+            deleteFn: function(pid, colorid, type, index) {
+                deleteShareFn(pid, colorid, type, index);
+            },
+            tabs: function(index) {
+                this.mytab = index;
+                this.isEdit = false;
+                this.$nextTick(function() {
+                    $('#gul').wookmark({
+                        align: 'center',
+                        autoResize: true,
+                        fillEmptySpace: true,
+                        flexibleWidth: 0,
+                        offset: 10
+                    });
+                })
 
             },
             changtype: function(index) {
@@ -40,17 +57,17 @@ $(function() {
         },
         mounted: function() {
             var _this = this;
-            getListFn(pid);
+            getListFn(1);
             this.$nextTick(function() {
 
             })
         }
     });
 
-    function addShareFn(pid, colorid, type) {
+    function deleteShareFn(pid, colorid, type, index) {
         $.ajax({
             type: "POST",
-            url: addShare,
+            url: deleteShare,
             data: {
                 pid: pid,
                 colorid: colorid,
@@ -59,7 +76,8 @@ $(function() {
             success: function(res) {
                 var data = JSON.parse(res);
                 if (data.status == 200) {
-                    msg(data.data);
+                    console.log(index);
+                    vm.list.splice(index, 1);
                 } else {
                     msg(data.data);
                 }
@@ -67,61 +85,52 @@ $(function() {
         })
     }
 
-    function getListFn(pid) {
+    function getListFn(type) {
         $.ajax({
             type: "POST",
             url: getList,
             data: {
-                pid: pid
+                type: type
             },
             success: function(res) {
                 var data = JSON.parse(res);
+                console.log(data);
                 if (data.status == 200) {
                     vm.list = data.data;
-                    vm.curr = vm.list.colorList[0];
-                    if (!vm.curr.colorImg) {
-                        vm.isError = true;
-                    }
-                    var product = data.data.colorList;
-                    for (var i = 0; i < product.length; i++) {
-                        if (product[i].isdefault > 0) {
-                            vm.mydefault = product[i];
-                        }
-                    }
 
                 } else {
-                    console.log(data.status);
+                    msg(data.data);
                 }
             }
         })
     }
-
 
 
 })
 
 /**
- * 接口名称：获取产品详情
- * URL：	/product_getDetail.html
- * 方式：	POST
- * 参数：pid 产品id
- *  返回 200:成功
- * 		401:未知错误
- * 		402:授权错误
- * 		{"status":"200","data":数据}
- */
-
-/**
- * 接口名称：添加至分享列表
- * URL：	/share_add.html
- * 方式：	POST
+ * 接口名称：从分享列表删除
+ * URL：/share_del.html
+ * 方式：POST
  * 参数：pid 产品或媒介id
- * 		colorid 如果type=1 colorid必填
+ *	colorid 如果type=1 colorid必填
  *      type 1产品 2媒介
  *  返回 200:成功
- * 		401:参数缺失		
+ * 		401:参数缺失
  * 		402:授权错误
  * 		403:颜色缺失
- * 		404:产品已在分享列表中
+ * 		404:分享列表为空
  * 		{"status":"200","data":"success"}
+ */
+
+
+/**
+ * 接口名称：获取当前分享列表
+ * URL：/share_getList.html
+ * 方式：POST
+ * 参数：type 1.产品 2.媒介
+ *  返回 200:成功
+ * 	401:参数缺失
+ * 	402:授权错误
+ * 	{"status":"200","data":数据}
  */
