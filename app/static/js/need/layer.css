@@ -352,3 +352,11 @@ body .layui-m-layer .layui-m-layer-msg {
 .layui-m-layer-msg .layui-m-layercont {
     padding: 10px 20px
 }
+
+.layerbtn .layui-m-layercont {
+    display: none;
+}
+
+.layerbtn .layui-m-layerbtn span[yes] {
+    color: #000;
+}

@@ -36,9 +36,9 @@ block content
                             i 姓名
                             input(placeholder="请填写" v-model="toUser.name")
                     dd
-                        div
+                        div(@click="selectMale")
                             i 称谓
-                            input(placeholder="请选择" v-model="toUser.sex")
+                            input(placeholder="请选择" v-model="toUser.sex" disabled="disabled")
                     dd.last
                         a.btn(@click="saveLocal") 确认
                         a.btn(@click="showform(false)") 取消
