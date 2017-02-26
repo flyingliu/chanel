@@ -1,0 +1,10 @@
+extends ./layout.jade
+
+block content
+
+    .video#video
+        video(:src="video.src" controls="controls" v-bind:poster="video.poster")
+
+
+
+    script(src="/app/static/js/video.js")      
