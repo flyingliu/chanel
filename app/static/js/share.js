@@ -14,6 +14,7 @@ $(function() {
             list: {},
             curr: {},
             mytab: 1,
+            shareId: '',
             isEdit: false
         },
         methods: {
@@ -97,6 +98,12 @@ $(function() {
                 console.log(data);
                 if (data.status == 200) {
                     vm.list = data.data;
+                    for (var i = 0; i < vm.list.length; i++) {
+                        if (vm.list[i].shareid > 0) {
+                            vm.shareId = vm.list[i].shareid;
+                            return;
+                        }
+                    };
 
                 } else {
                     msg(data.data);

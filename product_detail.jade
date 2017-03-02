@@ -16,15 +16,15 @@ block content
                         span(v-if="!isError")
                             img(:src="curr.colorImg")
                         span(v-else="") 
-                            img(:src="mydefault.colorImg")
+                            img(:src="list.defaultImg")
 
                     .info
-                        span.error(v-if="isError") 该产品没有图片，不能添加
                         span.title {{list.name}}
-                        span.code {{list.model_no}}
-                        span.price {{list.price}}
-                        span.type(v-html="list.description")
+                        span.type {{list.description}}
+                        span.type {{curr.color}}
+                        span.code {{list.model_no}} {{curr.colorCode}}
                         span.wh {{list.spec}}
+                        span.price {{list.price}}
 
                     .fimg
                         img(v-for="(item, index) in list.imageList" v-bind:src="item.httpPostImg" alt="")

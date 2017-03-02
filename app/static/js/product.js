@@ -25,6 +25,9 @@ $(function() {
             activeitem: function(e) {
                 var dom = $(e.target);
                 dom.parent().addClass("active").siblings().removeClass("active");
+            },
+            closeFilter: function() {
+                $(".filter").hide();
             }
         },
         mounted: function() {

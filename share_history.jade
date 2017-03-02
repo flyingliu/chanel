@@ -5,14 +5,14 @@ block content
         .header
             a.prev(href="share_showlist.html") 返回 
 
-        .historylist(:class='{nodata:list.length==0}')
+        .historylist(:class='{nodata:list.length==0}' v-cloak)
             ul
-                each v in [1,2,3,4]
-                    li
-                        p.to TO  
-                        p.name 王楚楚 女士
-                        p.time 02/15/2017
-                        i.dot
+                li(v-for="item in list")
+                    p.to TO  
+                    p.name {{item.touser}} <span :class="{women:item.sex == 2,man:item.sex == 1}"></span>
+                    p.time {{item.send_time}}
+                    a(v-bind:href="'share_productDetail.html?type=1&id='+item.id")
+                        i.dot()
 
     script.
         var mymark = "";

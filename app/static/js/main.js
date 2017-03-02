@@ -26,7 +26,23 @@ $(function() {
             indexdom.toggleClass("active");
         });
     };
+
+    if ($(".product").outerHeight() < $(window).height()) {
+        $(".noticeup").fadeOut();
+    }
+
+
+
+    document.addEventListener('touchstart', touch, false);
+
+    function touch() {
+        $(".noticeup").fadeOut();
+    }
+
 })
+
+var domain = location.port == "8080" ? "//devch.minuteschina.com/" : "";
+var shareSend = domain + '/share_send.html';
 
 function msg(msg) {
     //提示
@@ -42,12 +58,38 @@ function Loading() {
     $("body").append('<div class="loading"></div');
 }
 
+function gotoid(dom) {
+    $("html,body").animate({ scrollTop: $(dom).offset().top }, 500);
+}
+
 
 var loadingFn = Loading.prototype;
 loadingFn.hide = function() {
     if ($(".loading").length > 0) {
         $(".loading").remove();
     }
+}
+
+function shareSendFn(shareid) {
+    var name = localStorage.getItem("name") ? localStorage.getItem("name") : "未填写姓名";
+    var sex = localStorage.getItem("sex");
+    $.ajax({
+        type: "POST",
+        url: shareSend,
+        data: {
+            shareid: shareid,
+            touser: name,
+            sex: sex
+        },
+        success: function(res) {
+            var data = JSON.parse(res);
+            if (data.status == 200) {
+                msg(data.data);
+            } else {
+                msg(data.data);
+            }
+        }
+    })
 }
 
 function getQueryString(name, url) {

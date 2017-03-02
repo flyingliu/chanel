@@ -13,22 +13,25 @@ block content
         
         .grid.sharepro(:class='{nodata:list.length==0,edit:isEdit}' v-if="mytab==1")
             h1.statusa
+                a(href="/product_showlist.html") 添加产品
                 a(@click="editFn(false)") 完成
+               
             h1.statusb
-                a(@click="editFn(true)") 编辑
+                a(@click="editFn(true)") 编辑列表
             .gridcon
                 ul.mypro
                     li.box(v-for="(item,index) in list")
-                        a(href="share_productDetail.html")
+                        a()
                             img(:src="item.httpPostImg", alt="")
                         i.delete(@click="deleteFn(item.pid, item.colorid, 1,index)")
+            a.btnfull(:href="'share_productDetail.html?id='+shareId") 确定
 
         
-        .grid(v-if="mytab==2" v-bind:class="{edit:isEdit,nodata:true}")
+        .grid.sharemedia(v-if="mytab==2" v-bind:class="{edit:isEdit,nodata:false}")
             h1.statusa
                 a(@click="editFn(false)") 完成
             h1.statusb
-                a(@click="editFn(true)") 编辑
+                a(@click="editFn(true)") 编辑列表
             .gridcon
                 ul.mymedia#gul
                     li.box

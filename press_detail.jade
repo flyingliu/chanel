@@ -1,0 +1,25 @@
+extends ./layout.jade
+
+block content
+    .pressdetail#pressdetail
+        .header
+            a.prev(href="press_showlist.html") 返回  
+            a.next.btn(href="#" @click="addbuy") 添加
+                    
+        .pdetail
+            .textcon
+                h1.title 2017春夏预告系列
+                p.desc Lily-Rose Depp
+                div.pcontent 少女影星、品牌形象大使Lily-Rose Depp身着2017春夏预告系列几何图案的海军蓝针织束腰外套，配以同系列珠宝单品。
+
+                p.link
+                    a(href="#") 查看原文
+
+            div.pimg
+                img(src="/app/static/images/t2.jpg", alt="")
+ 
+    script(src="/app/static/js/wook.js")
+    script.
+        var mymark = "re";
+    script(src="/app/static/js/watermark.js")
+    script(src="/app/static/js/press.js")  

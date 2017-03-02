@@ -3,27 +3,28 @@ extends ./layout.jade
 block content
     .sharedetail#sharedetail(@click="hideNotice")
         i.noticeup(v-if="isNotice")
-        .header
+        .header.headerline
             //- a.btnmore   
             //- a.btnadd
             a.btnlogo
 
         .shareproduct
             dl(v-cloak)
-                dd(v-for="item in list")
+                dd(v-for="(item,index) in list" v-bind:id="'page'+index")
                     .plist
                         span
                             img(:src="item.httpPostImg")
                     .info
                         span.title {{item.productArr.name}}
-                        span.type(v-html="item.productArr.description")
-                        span.code {{item.productArr.model_no}}
+                        span.type {{item.productArr.description}}
+                        span.type {{item.colorArr.name}}
+                        span.code {{item.productArr.model_no}} {{item.colorArr.code}}
                         span.wh {{item.productArr.spec}}
                         span.price {{item.productArr.price}}
             a.btnfull(@click="showform(true)") 确定
 
 
-        .shareform#shareform(v-if="isShowForm")
+        .shareform#shareform(v-if="isShowForm" v-cloak)
 
             .header
                 a.prev 返回   
@@ -34,11 +35,12 @@ block content
                     dd
                         div
                             i 姓名
-                            input(placeholder="请填写" v-model="toUser.name")
-                    dd
+                            input(placeholder="请填写" v-model="touser")
+                    dd.slt
                         div(@click="selectMale")
                             i 称谓
-                            input(placeholder="请选择" v-model="toUser.sex" disabled="disabled")
+                            span(@click.stop.prevent="selectMale(1)" v-bind:class="{active:mysex == 1}") 先生
+                            span(@click.stop.prevent="selectMale(2)" v-bind:class="{active:mysex == 2}") 小姐
                     dd.last
                         a.btn(@click="saveLocal") 确认
                         a.btn(@click="showform(false)") 取消

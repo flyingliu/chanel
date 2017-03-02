@@ -4,7 +4,6 @@ $(function() {
     // getList
     var domain = location.port == "8080" ? "//devch.minuteschina.com/" : "";
     var getList = domain + '/share_getHistory.html';
-    var addShare = domain + '/share_add.html';
     var tmpPage = 1;
     var myScroll;
     var pid = getQueryString("pid");
@@ -57,9 +56,8 @@ $(function() {
             },
             success: function(res) {
                 var data = JSON.parse(res);
-                console.log(data);
                 if (data.status == 200) {
-
+                    vm.list = data.data;
                 } else {
                     console.log(data.status);
                 }
