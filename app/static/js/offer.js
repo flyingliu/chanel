@@ -8,7 +8,12 @@ $(function() {
     var tmpPage = 1;
     var myScroll;
     var pid = getQueryString("pid");
-
+    var wookOptions = {
+        align: 'left',
+        autoResize: true,
+        container: $('#gul'),
+        offset: 10
+    };
     var vm = new Vue({
         el: "#offer",
         data: {
@@ -79,10 +84,24 @@ $(function() {
                 if (data.status == 200) {
                     vm.list = data.data;
                     vm.curr = vm.list.colorList[0];
+
                     if (!vm.curr.colorImg) {
                         vm.isError = true;
                     }
                     var product = data.data.colorList;
+                    var pressLength = data.data.pressList.length;
+                    vm.$nextTick(function() {
+                        $('#gul').find("img").on("load", function() {
+                            console.log(pressLength);
+                            pressLength--;
+                            if (pressLength == 1) {
+                                $('#gul').wookmark(wookOptions);
+                            }
+
+                        })
+
+                    });
+
                     for (var i = 0; i < product.length; i++) {
                         if (product[i].isdefault > 0) {
                             vm.mydefault = product[i];

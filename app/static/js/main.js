@@ -3,7 +3,6 @@ $(function() {
     var indexdom = $(".indexmenu");
     if (indexdom.length > 0) {
         var load = new Loading();
-
         $("body >.header,body >.footer").hide();
         var bgimg = new Image();
         bgimg.src = $(".bgimg")[0].src;
@@ -37,6 +36,7 @@ $(function() {
 
     function touch() {
         $(".noticeup").fadeOut();
+        $(".mescroll > i").fadeOut();
     }
 
 })
@@ -70,6 +70,7 @@ loadingFn.hide = function() {
     }
 }
 
+
 function shareSendFn(shareid) {
     var name = localStorage.getItem("name") ? localStorage.getItem("name") : "未填写姓名";
     var sex = localStorage.getItem("sex");
@@ -90,6 +91,56 @@ function shareSendFn(shareid) {
             }
         }
     })
+}
+
+// ref https://github.com/WICG/EventListenerOptions/pull/30
+function isPassive() {
+    var supportsPassiveOption = false;
+    try {
+        addEventListener("test", null, Object.defineProperty({}, 'passive', {
+            get: function() {
+                supportsPassiveOption = true;
+            }
+        }));
+    } catch (e) {}
+    return supportsPassiveOption;
+}
+
+function updateUrl(url, title) {
+    var index = 0;
+    var z = 0;
+
+    if (!url)
+        return;
+    if (url.indexOf("http") >= 0) {
+        for (var i = 0; i < url.length; i++) {
+            var k = url.charAt(i);
+            if (k == "/") {
+                z++;
+            }
+
+            if (z == 3) {
+                index == i;
+                break;
+            }
+        }
+
+        url = url.substr(index, url.length);
+    }
+    if (!title)
+        title = document.title;
+
+    var state = { // 这里可以是你想给浏览器的一个State对象，为后面的StateEvent做准备。
+        title: title,
+        url: url
+    };
+
+    history.pushState(state, title, url);
+    document.title = title;
+
+    window.onpopstate = function(e) {
+        document.title = e.state.title;
+    }
 }
 
 function getQueryString(name, url) {

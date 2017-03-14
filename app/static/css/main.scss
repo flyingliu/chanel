@@ -1,5 +1,6 @@
  @import "common";
  @import "share";
+ @import "comm";
  @font-face {
      font-family: "chanel";
      src: url(//:) format("no404"), url("ABChanelCouture-Reg.otf") format("truetype");
@@ -47,7 +48,7 @@
      @extend %extend_2;
      background: $white;
      color: $black;
-     font: .2rem/1.8 Helvetica, \5FAE\8F6F\96C5\9ED1, sans-serif;
+     font: .28rem/1.8 Helvetica, \5FAE\8F6F\96C5\9ED1, sans-serif;
  }
  
  [v-cloak] {
@@ -71,6 +72,14 @@
      top: 0;
  }
  
+ #presslist {
+     width: 100%;
+     height: 100%;
+     position: relative;
+     top: 0;
+     overflow: hidden;
+ }
+ 
  .hide {
      display: none;
  }
@@ -80,6 +89,7 @@
      border-bottom: .07rem solid $black;
      position: fixed;
      top: 0;
+     left: 0;
      background: $white;
      z-index: 9;
      width: 100%;
@@ -88,6 +98,9 @@
      }
      &.headerline {
          position: absolute;
+         border-bottom: 1px solid #eee;
+     }
+     &.headerdetail {
          border-bottom: 1px solid #eee;
      }
      &.tabhead {
@@ -114,6 +127,46 @@
                      width: 50%;
                  }
              }
+             &.fourli {
+                 li {
+                     width: 25%;
+                 }
+             }
+         }
+     }
+     &.headdot {
+         text-align: right;
+         border-bottom: 1px solid #eee;
+         vertical-align: middle;
+         position: relative;
+         >i {
+             width: .48rem;
+             height: .48rem;
+             background: url(../images/bdown.png) no-repeat;
+             background-size: cover;
+             margin: auto;
+             display: inline-block;
+             top: .22rem;
+             position: absolute;
+             z-index: 9;
+             &.next {
+                 transform: rotate(0.75turn);
+                 right: 0;
+             }
+             &.prev {
+                 transform: rotate(0.25turn);
+                 right: 1rem;
+             }
+             &.num {
+                 top: .24rem;
+                 padding: 0;
+                 font: .3rem/.48rem $chanel;
+                 background: none;
+                 color: #000;
+                 right: 0.5rem;
+                 width: .5rem;
+                 text-align: center;
+             }
          }
      }
      a {
@@ -136,7 +189,15 @@
                  content: " \e620";
                  font-family: $font_0;
                  font-size: .2rem;
+                 vertical-align: top;
              }
+         }
+         &.btna {
+             top: .28rem;
+             background: $black;
+             line-height: .36rem;
+             color: $white;
+             padding: 0 0.1rem;
          }
          &.btnmore {
              background: url(../images/more.png) no-repeat;
@@ -159,6 +220,18 @@
              width: 2.15rem;
              height: .34rem;
              background-size: contain;
+             margin: auto;
+             left: 0;
+             right: 0;
+             bottom: 0;
+             top: 0;
+         }
+         &.btntext {
+             width: 2.15rem;
+             height: .5rem;
+             text-align: center;
+             background-size: contain;
+             font: .36rem/.5rem $chanel;
              margin: auto;
              left: 0;
              right: 0;
@@ -330,6 +403,7 @@
          right: 0;
          padding: 0 .4rem;
          top: 0;
+         z-index: 100;
      }
      ul {
          padding: 0 .4rem;
@@ -364,6 +438,116 @@
          width: 100%;
          text-align: center;
          font: .26rem/1.2rem $arial;
+     }
+     &.fsearch {
+         .search {
+             top: 0rem;
+             height: 1.4rem;
+             position: relative;
+             z-index: 99;
+             padding: 0 .4rem;
+             color: #fff;
+             .q {
+                 height: .86rem;
+                 border: 1px solid #fff;
+                 background: rgba(0, 0, 0, 0);
+                 width: 100%;
+                 font: .24rem/.46rem $arial;
+                 padding: .2rem;
+                 box-sizing: border-box;
+                 color: #fff;
+             }
+             .go {
+                 position: absolute;
+                 right: .4rem;
+                 top: 0;
+                 color: #fff;
+                 font: .24rem/.84rem $arial;
+                 padding: 0 .2rem;
+                 cursor: pointer;
+             }
+         }
+         .tagscroll {
+             width: 100%;
+             height: 100%;
+             box-sizing: border-box;
+             position: absolute;
+             top: 0;
+             padding: 2.3rem 0 1.2rem 0;
+             .scrollcon {
+                 height: 100%;
+                 overflow: hidden;
+             }
+         }
+         ul {
+             padding: 0 .4rem 1.2rem .4rem;
+             position: relative;
+             box-sizing: border-box;
+             width: 100%;
+             li {
+                 h5 {
+                     line-height: .5rem;
+                 }
+                 div {
+                     height: auto;
+                     padding: .2rem 0 .3rem 0;
+                     span {
+                         height: .5rem;
+                         display: inline-block;
+                         line-height: .5rem;
+                         width: 33.33%;
+                         input {
+                             display: none;
+                             &+label:before {
+                                 content: ' ';
+                                 vertical-align: middle;
+                                 width: .2rem;
+                                 height: .2rem;
+                                 display: inline-block;
+                                 color: rgba(0, 0, 0, 0);
+                                 border: 1px solid #fff;
+                                 font: .2rem/.2rem $chanel;
+                                 margin-right: .2rem;
+                                 margin-top: -.05rem;
+                             }
+                             &:checked+label:before {
+                                 background: url(../images/gou.svg) no-repeat;
+                                 background-size: contain;
+                             }
+                         }
+                     }
+                 }
+                 &.line {
+                     h5 {
+                         border-top: 1px solid #fff;
+                         padding: .3rem 0 0 0;
+                     }
+                     div {
+                         span {
+                             text-align: left;
+                             padding-left: 2.3rem;
+                             width: 100%;
+                         }
+                     }
+                 }
+             }
+         }
+     }
+ }
+ 
+ .fixedbtn {
+     position: fixed;
+     width: 100%;
+     bottom: 0rem;
+     text-align: center;
+     left: 0;
+     background: #000;
+     .btn {
+         height: 1.2rem;
+         color: #fff;
+         font: .26rem/1.2rem $arial;
+         display: inline-block;
+         padding: 0 1rem;
      }
  }
  
@@ -606,4 +790,61 @@
  .price:before {
      content: "\e63a";
      font-family: $font_0;
+ }
+ 
+ .mecon {
+     width: 100%;
+     //  padding: .94rem 0 0 0;
+     .mescroll {
+         width: 100%;
+         position: relative;
+         >i {
+             position: absolute;
+             width: .48rem;
+             height: .48rem;
+             top: 0;
+             background: url(../images/down.png) no-repeat;
+             background-size: cover;
+             margin: auto;
+             &.next {
+                 transform: rotate(0.75turn);
+                 right: 0;
+             }
+             &.prev {
+                 transform: rotate(0.25turn);
+                 left: 0;
+             }
+         }
+         .scollcon {
+             width: 100%;
+             overflow: hidden;
+             ul {
+                 width: 7.5rem * 4;
+                 font-size: 0;
+                 li {
+                     width: 7.5rem;
+                     display: inline-block;
+                     vertical-align: top;
+                     height: 100%;
+                     overflow: auto;
+                     img {
+                         width: 100%;
+                     }
+                 }
+             }
+         }
+     }
+     .medesc {
+         padding: 0 0 1rem 0;
+         >.more {
+             margin: .2rem .4rem 0 .4rem;
+             font: .24rem/.5rem $chanel;
+             display: inline-block;
+             border-bottom: 1px solid #ccc;
+         }
+     }
+ }
+ 
+ .link a {
+     text-decoration: underline;
  }

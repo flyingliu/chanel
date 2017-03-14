@@ -3,75 +3,54 @@ extends ./layout.jade
 block content
     .presslist#presslist
         .header
-            a.prev(href="#") 返回  
-            a.next(href="share_history") 搜索
+            a.prev(href="main_index.html") 首页  
+            a.next(@click="showformFn") 搜索
                     
-        .grid.mypress
+        .grid.mypress#mypress(:class="{nodata:list.length<1}")
             .gridcon
                 ul#gul
-                    li.box
-                        img(src="/app/static/images/timg.jpg", alt="")
+
+                    li(v-for="item in list")
+                        a(v-bind:href="'press_detail.html?id='+item.id")
+                            img(:src="item.httpPostImg", alt="")
                         h5
-                            i.heart
-                            span 2345
-                            a(href="#") 查看
-                    li.box
-                        img(src="/app/static/images/bao.jpg", alt="")
-                        h5
-                            i.heart
-                            span 2345
-                            a(href="#") 查看
-                    li.box
-                        img(src="/app/static/images/t1.jpg", alt="")
-                        h5
-                            i.heart
-                            span 2345
-                            a(href="#") 查看
-                    li.box
-                        img(src="/app/static/images/timg.jpg", alt="")
-                        h5
-                            i.heart.active
-                            span 2345
-                            a(href="#") 查看
-                    li.box
-                        img(src="/app/static/images/bao.jpg", alt="")
-                        i.delete
-                    li.box
-                        img(src="/app/static/images/t1.jpg", alt="") 
-                        i.delete   
+                            i.heart(@click="addHeart(item)",v-bind:class="{active:item.isActive}")
+                            span {{item.heart}}
+                            a(v-bind:href="'press_detail.html?id='+item.id") 查看
 
         .filter.fsearch
             i.close(@click="closeFilter") 关闭
-            ul  
-                li.active
-                    h5(@click="activeitem($event)") 流浪包
-                    div
-                        span(@click="getfilter(1,1)") 小号
-                        span(@click="getfilter(1,2)") 中号
-                        span(@click="getfilter(1,3)") 大号
+            .search
+                input.q(type="text",v-on:keyup.enter="getSearch", v-model="search", placeholder="请输入明星／媒体名称")
+                a.go(@click="getSearch") 搜索
+            .tagscroll
+                .scrollcon
+                    ul
+                        li(v-for="tag in tags", v-if="tag.type < 5")
+                            h5 {{tag.title}}
+                            div
+                                span(v-for="no in tag.tagList")
+                                    input(type="checkbox", :id="'no'+no.id", v-model="size", :value="no.id")                          
+                                    label(:for="'no'+no.id") {{no.name}}               
+                        li.line(v-else="")
+                            h5 {{tag.title}}                   
+                            div
+                                span(v-for="no in tag.tagList")
+                                    input(type="checkbox", :id="'no'+no.id", v-model="season", :value="no.id")                            
+                                    label(:for="'no'+no.id") {{no.name}}              
 
-                li 
-                    h5(@click="activeitem($event)") 双肩背包  
-                    div 
-                        span(@click="getfilter(2,1)") 小号
-                        span(@click="getfilter(2,2)") 中号
-                        span(@click="getfilter(2,3)") 大号                
-                li 
-                    h5(@click="activeitem($event)") 购物包 
 
-                    div 
-                        span(@click="getfilter(3,1)") 小号
-                        span(@click="getfilter(3,2)") 中号
-                        span(@click="getfilter(3,3)") 大号                
-                li 
-                    h5(@click="activeitem($event)") 手袋
-                    div 
-                        span(@click="getfilter(4,1)") 小号
-                        span(@click="getfilter(4,2)") 中号
-                        span(@click="getfilter(4,3)") 大号
+                .fixedbtn
+                    a.btn(@click="getSearch") 提交            
+                    a.btn(@click="getSearch(false)") 显示全部            
 
     script(src="/app/static/js/wook.js")
     script.
         var mymark = "re";
     script(src="/app/static/js/watermark.js")
+
+    //- script(src="/app/static/js/jquery-ui.min.js")
+    //- script(src="/app/static/js/jquery.touch-punch.min.js")
+    //- script(src="/app/static/js/shapeshift.js")
+
     script(src="/app/static/js/press.js")  

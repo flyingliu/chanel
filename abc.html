@@ -3,13 +3,12 @@
 
 <head>
     <meta charset="UTF-8" />
-    <title>CHANEL</title>
+    <title>chanels</title>
     <link rel="icon" href="/favicon.ico" />
     <meta name="viewport" content="user-scalable=yes,width=device-width, maximum-scale=1.0, minimum-scale=0.2" />
     <script src="/app/js/view.js"></script>
     <link rel="stylesheet" href="/app/static/iconfont/iconfont.css" />
     <link rel="stylesheet" href="/app/static/css/main.css" />
-    <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
     <script src="/app/static/js/jquery.min.js"></script>
     <script src="/app/static/js/jquery.touchSwipe.min.js"></script>
     <script src="/app/static/js/vue.min.js"></script>
@@ -17,69 +16,169 @@
     <script src="/app/static/js/layer.js">
     </script>
     <script src="/app/static/js/main.js"></script>
-    <script>
-        var mymark = "";
-        if (!window.ENV) window.ENV = {};
-        window.ENV.myDomain = "devch.minuteschina.com";
-        window.ENV.appId = "";
-        window.ENV.timestamp = "1488121806";
-        window.ENV.nonceStr = "minutes";
-        window.ENV.signature = "b266cfdabad75e18fa1b369bfd2bae79ba4e0aa8";
-        wx.config({
-            debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
-            appId: ENV.appId, // 必填，公众号的唯一标识
-            timestamp: ENV.timestamp, // 必填，生成签名的时间戳
-            nonceStr: ENV.nonceStr, // 必填，生成签名的随机串
-            signature: ENV.signature, // 必填，签名，见附录1
-            jsApiList: ['checkJsApi', 'hideOptionMenu'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
-        });
-        wx.ready(function() {
-            wx.hideOptionMenu();
-        });
-    </script>
 </head>
 
 <body>
-    <div id="share" class="share">
-        <div class="header tabhead"><a href="#" class="prev">首页  </a><a href="share_history" class="next">历史</a>
-            <ul class="tab twoli">
-                <li @click="tabs(1)" :class="{active:mytab==1}">产品</li>
-                <li @click="tabs(2)" :class="{active:mytab==2}">媒介传讯</li>
+    <div id="community" v-cloak="v-cloak" class="community">
+        <div class="header tabhead"><a href="#" class="prev">首页  </a><a href="#m" v-if="mytab==2" @click="uploadImg" class="next btna">发布资讯</a><a href="#f" @click="showPop('faqFlag')" v-if="mytab==3" class="next btna">提出你的问题</a>
+            <ul class="tab fourli">
+                <li @click="tabs(1)" :class="{active:mytab==1}">所有公告</li>
+                <li @click="tabs(2)" :class="{active:mytab==2}">我的公告</li>
+                <li @click="tabs(3)" :class="{active:mytab==3}">常见问题</li>
+                <li @click="tabs(4)" :class="{active:mytab==4}">公告板</li>
             </ul>
         </div>
-        <div :class="{nodata:list.length==0,edit:isEdit}" v-if="mytab==1" class="grid sharepro">
-            <h1 class="statusa"><a @click="editFn(false)">完成</a></h1>
-            <h1 class="statusb"><a @click="editFn(true)">编辑</a></h1>
-            <div class="gridcon">
-                <ul class="mypro">
-                    <li v-for="(item,index) in list" class="box">
-                        <!-- <a :href="'share_productDetail.html?id='+item.shareid"><img :src="item.httpPostImg" alt="" /></a> -->
-                        <img :src="item.httpPostImg" alt="" />
-                        <i @click="deleteFn(item.pid, item.colorid, 1,index)" class="delete"></i></li>
+        <div v-show="mytab==1" class="cdl aList">
+            <dl>
+                <dd v-for="item in aList">
+                    <div class="dt">
+                        <div class="desc">
+                            <h1>{{item.userArr.usercode}} {{item.userArr.name}}<span class="time">{{item.create_time}}</span></h1>
+                            <p>{{item.content}}</p>
+                        </div>
+                        <div class="img"><img :src="item.httpPostImg" alt="" /></div>
+                    </div>
+                    <ul class="clist">
+                        <li class="first">
+                            <div @click="showDetail(item.id)"><i class="comm"></i><span>{{item.commentList.length}}</span></div>
+                            <div @click="addHeart(item.id,item)"><i :class="{active:item.isActive}" class="heart"></i><span>{{item.heart}}</span></div>
+                        </li>
+                        <li v-for="(v,index) in item.commentList" v-if="index&lt;2">
+                            <h5>{{v.userArr.usercode}} {{v.userArr.name}}</h5>
+                            <p>{{v.content}}</p>
+                            <div v-if="item.commentList.length&gt;2 &amp;&amp; index == 1" class="all"><a href="#m" @click="showDetail(item.id)">查看更多评论</a></div>
+                            <div v-else="v-else" class="all"><a href="#m" @click="showDetail(item.id)">评论</a></div>
+                        </li>
+                        <li v-if="item.commentList.length == 0" class="none">
+                            <div class="all"><a href="#m" @click="showDetail(item.id)">评论   </a></div>
+                        </li>
+                    </ul>
+                </dd>
+            </dl>
+            <div v-if="detailFlag" class="popinfo">
+                <div class="header popheader"><a href="#" @click="closePop('detailFlag')" class="prev">取消  </a></div>
+                <ul class="clist">
+                    <li v-for="v in detail.commentList">
+                        <h5>{{v.userArr.usercode}} {{v.userArr.name}}</h5>
+                        <p> {{v.content}}</p>
+                    </li>
                 </ul>
+                <div class="qaform">
+                    <input type="text" v-model="comment" placeholder="添加评论..." /><i @click="sendCommentFn(detail.id,detail.commentList)" class="submit"></i>
+                </div>
             </div>
-            <a :href="'share_productDetail.html?id='+shareId" class="btnfull">确定</a>
         </div>
-        <div v-if="mytab==2" v-bind:class="{edit:isEdit,nodata:true}" class="grid">
-            <h1 class="statusa"><a @click="editFn(false)">完成</a></h1>
-            <h1 class="statusb"><a @click="editFn(true)">编辑</a></h1>
-            <div class="gridcon">
-                <ul id="gul" class="mymedia">
-                    <li class="box"><img src="/app/static/images/timg.jpg" alt="" /><i class="delete"></i></li>
-                    <li class="box"><img src="/app/static/images/bao.jpg" alt="" /><i class="delete"></i></li>
-                    <li class="box"><img src="/app/static/images/t1.jpg" alt="" /><i class="delete"></i></li>
-                    <li class="box"><img src="/app/static/images/timg.jpg" alt="" /><i class="delete"></i></li>
-                    <li class="box"><img src="/app/static/images/bao.jpg" alt="" /><i class="delete"></i></li>
-                    <li class="box"><img src="/app/static/images/t1.jpg" alt="" /><i class="delete">  </i></li>
+        <div v-show="mytab==2" :class="{nodata:myList.length&lt;1}" class="cdl myList">
+            <dl>
+                <dd v-for="item in myList">
+                    <div class="dt">
+                        <div class="desc">
+                            <h1>{{item.userArr.usercode}} {{item.userArr.name}}<span class="time">{{item.create_time}}</span></h1>
+                            <p>{{item.content}}</p>
+                        </div>
+                        <div class="img"><img :src="item.httpPostImg" alt="" /></div>
+                    </div>
+                    <ul class="clist">
+                        <li class="first">
+                            <div @click="showDetail(item.id)"><i class="comm"></i><span>{{item.commentList.length}}</span></div>
+                            <div @click="addHeart(item.id,item)"><i :class="{active:item.isActive}" class="heart"></i><span>{{item.heart}}</span></div>
+                        </li>
+                        <li v-for="(v,index) in item.commentList" v-if="index&lt;2">
+                            <h5>{{v.userArr.usercode}} {{v.userArr.name}}</h5>
+                            <p>{{v.content}}</p>
+                            <div v-if="item.commentList.length&gt;2 &amp;&amp; index == 1" class="all"><a href="#m" @click="showDetail(item.id)">查看更多评论</a></div>
+                            <div v-else="v-else" class="all"><a href="#m" @click="showDetail(item.id)">评论 </a></div>
+                        </li>
+                        <li v-if="item.commentList.length == 0" class="none">
+                            <div class="all"><a href="#m" @click="showDetail(item.id)">评论                              </a></div>
+                        </li>
+                    </ul>
+                </dd>
+            </dl>
+            <div v-if="detailFlag" class="popinfo">
+                <div class="header popheader"><a href="#" @click="closePop('detailFlag')" class="prev">取消  </a></div>
+                <ul class="clist">
+                    <li v-for="v in detail.commentList">
+                        <h5>{{v.userArr.usercode}} {{v.userid}}</h5>
+                        <p> {{v.content}}</p>
+                    </li>
                 </ul>
+                <div class="qaform">
+                    <input type="text" v-model="comment" placeholder="添加评论..." /><i @click="sendCommentFn(detail.id,detail.commentList)" class="submit"></i>
+                </div>
+            </div>
+        </div>
+        <div v-show="loadFlag" class="upload">
+            <div class="header popheader"><a href="#" @click="closeLoad" class="prev">取消  </a><a v-on:click="postSendFn()" class="next btna">发送</a></div>
+            <div class="form">
+                <textarea placeholder="分享你的想法" maxlength="140" v-model="content"></textarea>
+                <div class="img">
+                    <div id="previewImg" class="img"> </div>
+                </div>
+            </div>
+        </div>
+        <div v-if="mytab==3" class="qalist">
+            <ul>
+                <li v-for="q in faqList">
+                    <h5>{{q.question}}</h5>
+                    <div>
+                        <p @click.self="addClass($event)">{{q.answer}}</p>
+                    </div>
+                </li>
+            </ul>
+            <div v-if="faqFlag" class="popinfo">
+                <div class="header popheader"><a href="#" @click="closePop('faqFlag')" class="prev">取消  </a></div>
+                <div class="myfaq">
+                    <h3>我的所有问题</h3>
+                    <ul>
+                        <li v-for="q in qaList">
+                            <h5>{{q.question}}</h5>
+                        </li>
+                    </ul>
+                </div>
+                <div class="qaform">
+                    <input type="text" v-model="question" placeholder="提出你的问题" /><i @click="sendQuestionFn" class="submit"></i>
+                </div>
+            </div>
+        </div>
+        <div v-if="mytab==4" class="dlist">
+            <ul v-for="a in acList">
+                <li class="first"><span class="time">{{a.create_time}}</span>
+                    <div class="div">{{a.content}}</div>
+                    <div class="all"><a href="#1" @click="acinfo(a.id)">评论</a></div>
+                </li>
+                <li v-for="(r,index) in a.replyList" v-if="index &lt; 2">
+                    <h5>{{r.userArr.usercode}} {{r.userArr.name}}</h5>
+                    <p>{{r.content}}</p>
+                    <div v-if="a.replyList.length&gt;2" class="all"><a href="#1" @click="acinfo(a.id)">查看更多评论</a></div>
+                    <div v-else="v-else" class="all"><a href="#1" @click="acinfo(a.id)">评论</a></div>
+                </li>
+            </ul>
+            <div v-if="acDetail.id" class="popinfo">
+                <div class="header popheader"><a href="#" @click="acinfoClose" class="prev">取消     </a></div>
+                <ul>
+                    <li class="first"><span class="time">{{acDetail.create_time}}</span>
+                        <div class="div">{{acDetail.content}}</div>
+                    </li>
+                    <li v-for="(r,index) in acDetail.replyList">
+                        <h5>{{r.userArr.usercode}} {{r.userArr.name}}</h5>
+                        <p>{{r.content}}</p>
+                    </li>
+                </ul>
+                <div class="qaform">
+                    <input type="text" v-model="reply" /><i @click="sendReplyFn()" class="submit"></i>
+                </div>
             </div>
         </div>
     </div>
-    <script src="/app/static/js/wook.js"></script>
-    <script src="/app/static/js/watermark.js"></script>
-    <script src="/app/static/js/share.js">
+    <script>
+        var mymark = "re";
     </script>
-
+    <script src="/app/static/js/watermark.js"></script>
+    <script src="/app/static/js/vue-router.js"></script>
+    <script src="/app/static/js/comm.js">
+    </script>
+    <script type="text/javascript" charset="utf-8" src="http://192.168.3.6:8132/livereload.js"></script>
 </body>
 
 </html>

@@ -7,6 +7,7 @@ $(function() {
     var tmpPage = 1;
     var myScroll;
     var pid = getQueryString("pid");
+    var maintype = getQueryString("maintype");
 
     var vm = new Vue({
         el: "#history",
@@ -24,6 +25,15 @@ $(function() {
             },
             hideNotice: function() {
                 this.isNotice = false;
+            },
+            linkto: function(id) {
+                var maintype = getQueryString("maintype") || 1;
+                if (maintype == 2) {
+                    location.href = 'share_pressDetail.html?maintype=2&type=1&id=' + id;
+                } else {
+                    location.href = 'share_productDetail.html?type=1&id=' + id;
+                }
+
 
             },
             changtype: function(index) {
@@ -39,7 +49,7 @@ $(function() {
         },
         mounted: function() {
             var _this = this;
-            getListFn(1);
+            getListFn(maintype);
             this.$nextTick(function() {
 
             })

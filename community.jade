@@ -1,0 +1,172 @@
+extends ./layout.jade
+
+block content
+    .community#community(v-cloak)
+        .header.tabhead
+            a.prev(href="#") 首页  
+            a.next.btna(href="#m" v-if="mytab==2",@click="uploadImg") 发布资讯
+            a.next.btna(href="#f",@click="showPop('faqFlag')",v-if="mytab==3") 提出你的问题
+            ul.tab.fourli
+                li(@click="tabs(1)",:class='{active:mytab==1}') 所有公告
+                li(@click="tabs(2)",:class='{active:mytab==2}') 我的公告
+                li(@click="tabs(3)",:class='{active:mytab==3}') 常见问题
+                li(@click="tabs(4)",:class='{active:mytab==4}') 公告板
+        
+        .cdl.aList(v-show="mytab==1")
+            dl
+                dd(v-for="item in aList")
+                    .dt
+                        .desc
+                            h1 {{item.userArr.usercode}} {{item.userArr.name}}
+                                span.time {{item.create_time}}
+                            p {{item.content}}
+                        .img
+                            img(:src="item.httpPostImg", alt="")
+                    ul.clist
+                        li.first
+                            div(@click="showDetail(item.id)")
+                                i.comm
+                                span {{item.commentList.length}}
+                            div(@click="addHeart(item.id,item)")
+                                i.heart(:class="{active:item.isActive}")
+                                span {{item.heart}}
+                        li(v-for="(v,index) in item.commentList" v-if="index<2")
+                            h5 {{v.userArr.usercode}} {{v.userArr.name}}
+                            p(@click="showDetail(item.id)") {{v.content}}
+                            .all(v-if="item.commentList.length>2 && index == 1")
+                                a(href="#m",@click="showDetail(item.id)") 查看更多评论
+                            .all(v-else)
+                                a(href="#m",@click="showDetail(item.id)") 评论
+                        li.none(v-if="item.commentList.length == 0")
+                            .all
+                                a(href="#m",@click="showDetail(item.id)") 评论   
+
+            .popinfo(v-if="detailFlag")
+                .header.popheader
+                    a.prev(href="#" @click="closePop('detailFlag')") 取消  
+                ul.clist
+                    li(v-for="v in detail.commentList")
+                        h5 {{v.userArr.usercode}} {{v.userArr.name}}
+                        p  {{v.content}}
+                .qaform()
+                    input(type="text",v-model="comment",placeholder="添加评论...")
+                    i.submit(@click="sendCommentFn(detail.id,detail.commentList)")
+                         
+
+        .cdl.myList(v-show="mytab==2",:class="{nodata:myList.length<1}")
+            dl
+                dd(v-for="item in myList")
+                    .dt
+                        .desc
+                            h1 {{item.userArr.usercode}} {{item.userArr.name}}
+                                span.time {{item.create_time}}
+                            p {{item.content}}
+                        .img
+                            img(:src="item.httpPostImg", alt="")
+                    ul.clist
+                        li.first
+                            div(@click="showDetail(item.id)")
+                                i.comm
+                                span {{item.commentList.length}}
+                            div(@click="addHeart(item.id,item)")
+                                i.heart(:class="{active:item.isActive}")
+                                span {{item.heart}}
+                        li(v-for="(v,index) in item.commentList" v-if="index<2")
+                            h5 {{v.userArr.usercode}} {{v.userArr.name}}
+                            p(@click="showDetail(item.id)") {{v.content}}
+                            .all(v-if="item.commentList.length>2 && index == 1")
+                                a(href="#m",@click="showDetail(item.id)") 查看更多评论
+                            .all(v-else)
+                                a(href="#m",@click="showDetail(item.id)") 评论 
+                        li.none(v-if="item.commentList.length == 0")
+                            .all
+                                a(href="#m",@click="showDetail(item.id)") 评论                              
+
+
+            .popinfo(v-if="detailFlag")
+                .header.popheader
+                    a.prev(href="#" @click="closePop('detailFlag')") 取消  
+                ul.clist
+                    li(v-for="v in detail.commentList")
+                        h5 {{v.userArr.usercode}} {{v.userid}}
+                        p  {{v.content}}
+                .qaform()
+                    input(type="text",v-model="comment",placeholder="添加评论...")
+                    i.submit(@click="sendCommentFn(detail.id,detail.commentList)")
+
+
+
+         .upload(v-show="loadFlag")
+            .header.popheader
+                a.prev(href="#",@click="closeLoad") 取消  
+                a.next.btna(v-on:click="postSendFn()") 发送
+            .form
+                textarea(placeholder="分享你的想法", maxlength="140",v-model="content")
+                //- input.hide(type="file",id="fileImg",@change="fileImg")
+                .img
+                    div(class="img" id="previewImg")                    
+
+
+            
+        .qalist(v-if="mytab==3")
+            ul
+                li(v-for="q in faqList")
+                    h5 {{q.question}}
+                    div 
+                        p(@click.self="addClass($event)") {{q.answer}}
+
+             .popinfo(v-if="faqFlag")
+                .header.popheader
+                    a.prev(href="#" @click="closePop('faqFlag')") 取消  
+                .myfaq
+                    h3 我的所有问题
+
+                    ul
+                        li(v-for="q in qaList")
+                            h5 {{q.question}}
+                .qaform
+                    input(type="text",v-model="question",placeholder="提出你的问题")
+                    i.submit(@click="sendQuestionFn")
+
+
+
+
+        .dlist(v-if="mytab==4")
+            ul(v-for="a in acList")
+                li.first
+                    span.time {{a.create_time}}
+                    .div {{a.content}}
+                    .all
+                        a(href="#1" @click="acinfo(a.id)") 评论
+                li(v-for="(r,index) in a.replyList",v-if="index < 2")
+                    h5 {{r.userArr.usercode}} {{r.userArr.name}}
+                    p {{r.content}}
+                    .all(v-if="a.replyList.length>2")
+                        a(href="#1" @click="acinfo(a.id)") 查看更多评论
+                    .all(v-else)
+                        a(href="#1" @click="acinfo(a.id)") 评论
+            .popinfo(v-if="acDetail.id")
+                .header.popheader
+                    a.prev(href="#" @click="acinfoClose") 取消     
+                ul
+                    li.first
+                        span.time {{acDetail.create_time}}
+                        .div {{acDetail.content}}
+                    li(v-for="(r,index) in acDetail.replyList")
+                        h5 {{r.userArr.usercode}} {{r.userArr.name}}
+                        p {{r.content}}
+
+
+                .qaform
+                    input(type="text",v-model="reply")
+                    i.submit(@click="sendReplyFn()")
+
+
+
+    script.
+        var mymark = "re";
+    script(src="/app/static/js/watermark.js")
+    script(src="/app/static/js/vue-router.js")
+    
+    script(src="/app/static/js/comm.js")  
+                        

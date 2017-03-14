@@ -1,0 +1,73 @@
+extends ./layout.jade
+
+block content
+    .sharedetail#sharedetail(@click="hideNotice")
+        .header.headdot
+            //- a.btnmore   
+            //- a.btnadd
+            //- a.btntext 媒体快讯
+            i.prev
+            i.num {{showIndex}}
+            i.next
+
+
+        .mecon
+            .mescroll
+                .scollcon#mescroll
+                    ul
+                        li(v-for="item in list")
+                            img(:src="item.pressArr.httpPostImg", alt="")
+                            .medesc
+                                a.more(v-if="item.pressArr.url",v-bind:href="item.pressArr.url") 查看原文
+
+            a.btnfull.fixed(@click="showform(true)") 确定
+
+        .shareform#shareform(v-if="isShowForm" v-cloak)
+            .header
+                a.prev 返回   
+
+            .form
+                dl
+                    dt 请填写分享对象信息
+                    dd
+                        div
+                            i 姓名
+                            input(placeholder="请填写" v-model="touser")
+                    dd.slt
+                        div(@click="selectMale")
+                            i 称谓
+                            span(@click.stop.prevent="selectMale(1)" v-bind:class="{active:mysex == 1}") 先生
+                            span(@click.stop.prevent="selectMale(2)" v-bind:class="{active:mysex == 2}") 小姐
+                    dd.last
+                        a.btn(@click="saveLocal") 确认
+                        a.btn(@click="showform(false)") 取消
+
+    script.
+        var mymark = "";
+    script(src="/app/static/js/watermark.js")
+    script(src="/app/static/js/share_detail.js")  
+
+//- extends ./layout.jade
+
+//- block content
+//-     .media#media
+//-         .header.headerdetail
+//-             a.prev(href="press_showlist.html") 返回  
+//-         .mecon
+//-             .mescroll
+//-                 .scollcon#mescroll
+//-                     ul
+//-                         li
+//-                             img(src="/app/static/images/train.jpg", alt="")
+//-                         li
+//-                             img(src="/app/static/images/t1.jpg", alt="")
+//-                         li
+//-                             img(src="/app/static/images/t2.jpg", alt="")
+//-                 i.prev
+//-                 i.next
+//-             a.more(href="#") 查看原文
+            
+//-     script.
+//-         var mymark = "re";
+//-     script(src="/app/static/js/watermark.js")
+//-     script(src="/app/static/js/share_detail.js")

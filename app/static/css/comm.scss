@@ -1,0 +1,396 @@
+@import "common";
+h1,
+h5,
+h4,
+h3,
+h2,
+p {
+    margin: 0;
+}
+
+.community {
+    height: 100%;
+}
+
+.nodata {
+    &:before {
+        width: 100%;
+        height: .4rem;
+        position: absolute;
+        content: "还未发布任何内容";
+        text-align: center;
+        top: 0;
+        bottom: 0;
+        vertical-align: middle;
+        margin: auto;
+        color: #000;
+    }
+    * {
+        display: none;
+    }
+}
+
+.cdl {
+    padding: 1.4rem 0 0 0;
+    height: 100%;
+    box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
+    dl {
+        padding: 0 0 1.4rem 0;
+    }
+    dd {
+        .dt {
+            margin-left: -.4rem;
+            width: 7.5rem;
+            .desc {
+                padding: .4rem;
+                h1 {
+                    font: bold .24rem/.5rem $chanel;
+                    position: relative;
+                    margin: 0;
+                    .time {
+                        right: 0;
+                        position: absolute;
+                        font-size: .18rem;
+                        font-weight: normal;
+                    }
+                }
+                p {
+                    margin: 0;
+                    font: .26rem/1.5 $chanel1;
+                }
+            }
+            .img {
+                img {
+                    width: 100%;
+                    display: block;
+                }
+            }
+        }
+        padding: 0 .4rem .1rem .4rem;
+        border-bottom:1px solid #000;
+    }
+}
+
+.clist {
+    li {
+        border-bottom: 1px solid #eee;
+        padding: .15rem 0 .15rem .4rem;
+        position: relative;
+        &:last-child {
+            border-bottom: none;
+            .all {
+                display: block;
+            }
+        }
+        h5 {
+            margin: 0;
+            font: bold .24rem/.4rem $chanel;
+        }
+        p {
+            font: .26rem/.4rem $chanel;
+            color: #999;
+            max-height: .8rem;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            overflow: hidden;
+        }
+        .all {
+            padding: 0 .4rem 0 0;
+            font: .24rem/.4rem $chanel;
+            text-align: center;
+            display: none;
+            a {
+                border-bottom: 1px solid #999;
+                color: #999;
+            }
+        }
+        &:before {
+            content: '';
+            width: .1rem;
+            height: .1rem;
+            background: #000;
+            position: absolute;
+            top: 0;
+            left: 0;
+            border-radius: 50%;
+            margin: auto;
+            bottom: 0;
+        }
+        &.none {
+            &:before {
+                display: none;
+            }
+        }
+        &.first {
+            height: .8rem;
+            font-size: 0;
+            padding: 0;
+            &:before {
+                display: none;
+            }
+            div {
+                display: inline-block;
+                width: 50%;
+                font: .22rem/.8rem $chanel;
+                text-align: center;
+                i {
+                    width: .22rem;
+                    height: .22rem;
+                    display: inline-block;
+                    background: url(../images/ping.png) no-repeat center center;
+                    background-size: contain;
+                    vertical-align: middle;
+                    margin: 0 .1rem;
+                    &.heart {
+                        background-image: url(../images/heart.png);
+                        &.active {
+                            background-image: url(../images/hearta.png);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.dlist {
+    padding: 1.7rem 0 1.2rem .4rem;
+    box-sizing: border-box;
+    ul {
+        position: relative;
+        padding: .3rem 0 0 0;
+        &:after {
+            content: '';
+            height: 1px;
+            background: #000;
+            width: 7.5rem;
+            left: -.4rem;
+            position: absolute;
+            bottom: 0;
+        }
+    }
+    li {
+        border-bottom: 1px solid #eee;
+        padding: .15rem 0 .15rem .4rem;
+        position: relative;
+        h5 {
+            margin: 0;
+            font: bold .24rem/.4rem $chanel;
+        }
+        p {
+            font: .26rem/.4rem $chanel1;
+            color: #999;
+        }
+        .all {
+            padding: .1rem .4rem .1rem 0;
+            font: .24rem/.4rem $chanel1;
+            text-align: center;
+            display: none;
+            a {
+                border-bottom: 1px solid #999;
+                color: #999;
+            }
+        }
+        &:last-child {
+            .all {
+                display: block;
+            }
+        }
+        &:before {
+            content: '';
+            width: .1rem;
+            height: .1rem;
+            background: #000;
+            position: absolute;
+            top: .46rem;
+            left: 0;
+            border-radius: 50%;
+            margin: auto;
+        }
+        &.first {
+            font-size: 0;
+            padding: 0 0 .3rem 0;
+            &:before {
+                display: none;
+            }
+            span.time {
+                font: .18rem/.5rem $chanel;
+            }
+            .div {
+                display: inline-block;
+                width: 100%;
+                box-sizing: border-box;
+                padding: 0 .4rem 0 0;
+                font: bold .26rem/.34rem $chanel1;
+            }
+            .all {
+                padding: .2rem .4rem 0 .4rem;
+            }
+        }
+    }
+}
+
+.qalist {
+    padding: 1.7rem 0 1.3rem 0rem;
+    height: 100%;
+    box-sizing: border-box;
+    ul {
+        max-height: 100%;
+        overflow: auto;
+    }
+    li {
+        border-bottom: 1px solid #000;
+        padding: .2rem .4rem .4rem .8rem;
+        position: relative;
+        &.active {
+            div {
+                p {
+                    max-height: auto;
+                }
+            }
+        }
+        h5 {
+            font: bold .28rem/.4rem $chanel1;
+            padding: .2rem 0;
+            position: relative;
+            &:before {
+                content: "问";
+                position: absolute;
+                top: .2rem;
+                left: -.4rem;
+            }
+        }
+        div {
+            font: normal .28rem/.4rem $chanel1;
+            color: #000;
+            position: relative;
+            p {
+                max-height: .8rem;
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 2;
+                overflow: hidden;
+                &.active {
+                    max-height: 100em;
+                    -webkit-line-clamp: 100;
+                }
+            }
+            &:before {
+                content: "答";
+                position: absolute;
+                font-weight: bold;
+                top: 0rem;
+                left: -.4rem;
+            }
+        }
+    }
+}
+
+.myfaq {
+    h3 {
+        font: bold .28rem/.4rem $chanel1;
+        padding: .4rem .4rem 0 0;
+        text-align: center;
+    }
+    ul {
+        li {
+            padding: .2rem .4rem .2rem .4rem;
+            border-bottom: 1px solid #ccc;
+            h5 {
+                font: normal 0.28rem/0.4rem $chanel1;
+            }
+        }
+    }
+}
+
+.upload {
+    position: absolute;
+    background: #fff;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    z-index: 999;
+    .form {
+        padding: 1rem 0 0 0;
+        width: 100%;
+        textarea {
+            resize: none;
+            width: 100%;
+            padding: .2rem;
+            height: 2.4rem;
+            box-sizing: border-box;
+            font: .24rem/.4rem $chanel1;
+            display: block;
+        }
+        .img {
+            width: 100%;
+            img {
+                width: 100%;
+            }
+            canvas {
+                width: 100%;
+            }
+        }
+    }
+}
+
+.popinfo {
+    position: fixed;
+    background: #fff;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    padding: 1rem 0 1.2rem .4rem;
+    box-sizing: border-box;
+    ul {
+        &:after {
+            display: none;
+        }
+    }
+}
+
+.qaform {
+    width: 100%;
+    height: 1.2rem;
+    position: fixed;
+    bottom: 0;
+    border-top: .07rem solid #000;
+    padding: .3rem .4rem 0 .4rem;
+    box-sizing: border-box;
+    background: #fff;
+    left: 0;
+    input {
+        height: .62rem;
+        border: 1px solid #999;
+        border-radius: .31rem;
+        width: 100%;
+        font: .24rem/.32rem $chanel1;
+        padding: .15rem 1.15rem .15rem .2rem;
+        box-sizing: border-box;
+        &:focus {
+            outline: none;
+        }
+    }
+    .submit {
+        width: 1rem;
+        height: .5rem;
+        background: #000;
+        border-radius: .25rem;
+        position: absolute;
+        background-size: .3rem;
+        top: .36rem;
+        right: .48rem;
+        &:before {
+            content: "发送";
+            color: #fff;
+            width: 100%;
+            display: block;
+            text-align: center;
+        }
+    }
+}

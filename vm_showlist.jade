@@ -1,0 +1,22 @@
+extends ./layout.jade
+
+block content
+    .presslist#presslist
+        .header
+            a.prev(href="main_index.html") 首页  
+        .grid.mypress#mypress(:class="{nodata:list.length<1}")
+            .gridcon
+                ul#gul
+
+                    li(v-for="item in list")
+                        a(v-bind:href="'vm_detail.html?id='+item.id")
+                            img(:src="item.httpPostImg", alt="")
+                        h5
+                            span {{item.heart}}
+                            a(v-bind:href="'vm_detail.html?id='+item.id") 查看
+
+    script(src="/app/static/js/wook.js")
+    script.
+        var mymark = "re";
+    script(src="/app/static/js/watermark.js")
+    script(src="/app/static/js/vm.js")  

@@ -11,7 +11,7 @@ block content
                     p.to TO  
                     p.name {{item.touser}} <span :class="{women:item.sex == 2,man:item.sex == 1}"></span>
                     p.time {{item.send_time}}
-                    a(v-bind:href="'share_productDetail.html?type=1&id='+item.id")
+                    a( @click="linkto(item.id)")
                         i.dot()
 
     script.

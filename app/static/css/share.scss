@@ -60,6 +60,11 @@
     font: .26rem/1.3rem $chanel;
     text-align: center;
     display: block;
+    width: 100%;
+    &.fixed {
+        position: fixed;
+        bottom: 0;
+    }
 }
 
 .shareproduct {
@@ -219,12 +224,22 @@
     box-sizing: border-box;
     width: 100%;
     height: 100%;
+    &.progrid {
+        ul {
+            margin: 0 0 0 .2rem;
+        }
+    }
+    &.sharemedia {
+        .gridcon {
+            padding: 0 0 1.3rem .2rem;
+        }
+    }
     &.nodata {
         * {
             display: none;
         }
         &:before {
-            content: 'coming soon';
+            content: '浏览媒介传讯，添加至分享';
             height: .5rem;
             width: 100%;
             position: absolute;
@@ -271,11 +286,18 @@
                 width: 3.45rem;
                 height: auto;
             }
+            >a {
+                display: block;
+                img {
+                    width: 3.45rem;
+                    height: auto;
+                }
+            }
             >i {
                 width: .27rem;
                 height: .27rem;
                 position: absolute;
-                z-index: 99;
+                z-index: 5;
                 background: url(../images/pop.png) no-repeat;
                 background-size: cover;
                 right: 0;
@@ -332,7 +354,17 @@
         width: 100%;
     }
     &.mypress {
+        padding-top: 1.45rem;
+        &.nodata {
+            &:before {
+                content: '没有数据！'
+            }
+        }
+        .gridcon {
+            padding: 0 0 1.6rem 0;
+        }
         ul {
+            margin: 0 0 0 .2rem;
             li {
                 h5 {
                     border-bottom: 1px solid #000;
@@ -372,8 +404,28 @@
     }
     .textcon {
         padding: .4rem;
+        font-size: .26rem;
     }
     img {
         max-width: 100%;
+    }
+}
+
+.pressdetail {
+    &.black {
+        background: #000;
+        .headerdetail {
+            background: #000;
+            color: #fff;
+            a {
+                color: #fff;
+            }
+        }
+        .pdetail {
+            color: #fff;
+            a {
+                color: #fff;
+            }
+        }
     }
 }

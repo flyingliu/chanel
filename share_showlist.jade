@@ -4,21 +4,21 @@ block content
     .share#share
         .header.tabhead
             a.prev(href="#") 首页  
-            a.next(href="share_history") 历史
+            a.next(:href="'share_history?maintype='+mytab") 历史
             ul.tab.twoli
                 li(@click="tabs(1)",:class='{active:mytab==1}') 产品
                 li(@click="tabs(2)",:class='{active:mytab==2}') 媒介传讯
                     
                     
         
-        .grid.sharepro(:class='{nodata:list.length==0,edit:isEdit}' v-if="mytab==1")
+        .grid.sharepro(:class='{nodata:list.length==0,edit:isEdit}' v-show="mytab==1")
             h1.statusa
                 a(href="/product_showlist.html") 添加产品
                 a(@click="editFn(false)") 完成
                
             h1.statusb
                 a(@click="editFn(true)") 编辑列表
-            .gridcon
+            .gridcona
                 ul.mypro
                     li.box(v-for="(item,index) in list")
                         a()
@@ -27,31 +27,20 @@ block content
             a.btnfull(:href="'share_productDetail.html?id='+shareId") 确定
 
         
-        .grid.sharemedia(v-if="mytab==2" v-bind:class="{edit:isEdit,nodata:false}")
+        .grid.sharemedia(v-show="mytab==2" v-bind:class="{edit:isEdit,nodata:press.length==0}")
             h1.statusa
+                a(href="/press_showlist.html") 添加媒介
                 a(@click="editFn(false)") 完成
             h1.statusb
                 a(@click="editFn(true)") 编辑列表
             .gridcon
                 ul.mymedia#gul
-                    li.box
-                        img(src="/app/static/images/timg.jpg", alt="")
-                        i.delete
-                    li.box
-                        img(src="/app/static/images/bao.jpg", alt="")
-                        i.delete
-                    li.box
-                        img(src="/app/static/images/t1.jpg", alt="")
-                        i.delete
-                    li.box
-                        img(src="/app/static/images/timg.jpg", alt="")
-                        i.delete
-                    li.box
-                        img(src="/app/static/images/bao.jpg", alt="")
-                        i.delete
-                    li.box
-                        img(src="/app/static/images/t1.jpg", alt="") 
-                        i.delete   
+                    li(v-for="(v,mindex) in press")
+                        img(:src="v.pressArr.httpPostImg", alt="")
+                        i.delete(@click="deleteFn(v.pid, '', 2,mindex)")
+                        
+
+            a.btnfull(:href="'share_pressDetail.html?maintype=2&id='+shareId") 确定
     script(src="/app/static/js/wook.js")
     script.
         var mymark = "";

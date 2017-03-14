@@ -7,6 +7,12 @@ $(function() {
     var tmpPage = 1;
     var myScroll;
     var pid = getQueryString("pid");
+    var wookOptions = {
+        align: 'left',
+        autoResize: true,
+        container: $('#gul'),
+        offset: 10
+    };
 
     var vm = new Vue({
         el: "#share",
@@ -15,7 +21,8 @@ $(function() {
             curr: {},
             mytab: 1,
             shareId: '',
-            isEdit: false
+            isEdit: false,
+            press: []
         },
         methods: {
             addbuy: function() {
@@ -34,16 +41,7 @@ $(function() {
             tabs: function(index) {
                 this.mytab = index;
                 this.isEdit = false;
-                this.$nextTick(function() {
-                    $('#gul').wookmark({
-                        align: 'center',
-                        autoResize: true,
-                        fillEmptySpace: true,
-                        flexibleWidth: 0,
-                        offset: 10
-                    });
-                })
-
+                getListFn(this.mytab);
             },
             changtype: function(index) {
                 this.currIndex = index;
@@ -59,9 +57,6 @@ $(function() {
         mounted: function() {
             var _this = this;
             getListFn(1);
-            this.$nextTick(function() {
-
-            })
         }
     });
 
@@ -78,10 +73,14 @@ $(function() {
                 var data = JSON.parse(res);
                 if (data.status == 200) {
                     console.log(index);
-                    vm.list.splice(index, 1);
-                } else {
-                    msg(data.data);
+                    if (vm.mytab == 1) {
+                        vm.list.splice(index, 1);
+                    } else {
+                        vm.press.splice(index, 1);
+                    }
                 }
+                msg(data.data);
+
             }
         })
     }
@@ -97,14 +96,36 @@ $(function() {
                 var data = JSON.parse(res);
                 console.log(data);
                 if (data.status == 200) {
-                    vm.list = data.data;
-                    for (var i = 0; i < vm.list.length; i++) {
-                        if (vm.list[i].shareid > 0) {
-                            vm.shareId = vm.list[i].shareid;
-                            return;
-                        }
-                    };
+                    if (vm.mytab == 1) {
+                        vm.list = [];
+                        vm.list = data.data;
+                        for (var i = 0; i < vm.list.length; i++) {
+                            if (vm.list[i].shareid > 0) {
+                                vm.shareId = vm.list[i].shareid;
+                                return;
+                            }
+                        };
+                    } else {
+                        vm.press = [];
+                        vm.press = data.data;
+                        vm.$nextTick(function() {
+                            var imgs = [];
 
+                            var imgsLength = vm.press.length
+                            for (var i = 0; i < imgsLength; i++) {
+                                var img = new Image();
+                                vm.shareId = vm.press[i].shareid;
+                                img.src = vm.press[i].pressArr.httpPostImg;
+                                img.onload = function() {
+                                    imgsLength--;
+                                    if (imgsLength < 1) {
+                                        $('#gul').wookmark(wookOptions);
+                                        $('#gul').trigger('refreshWookmark');
+                                    }
+                                }
+                            }
+                        })
+                    }
                 } else {
                     msg(data.data);
                 }

@@ -29,22 +29,16 @@ block content
                     .fimg
                         img(v-for="(item, index) in list.imageList" v-bind:src="item.httpPostImg" alt="")
                         video(v-for="(item, index) in list.videoList" v-bind:src="item.videoArr.url" v-bind:poster="item.videoArr.httpPostImg" controls="controls") 
-                //- .grid
-                //-     h4 in the press
-                //-     ul#gul
-                //-         li.box
-                //-             img(src="/app/static/images/timg.jpg", alt="")
-                //-         li.box
-                //-             img(src="/app/static/images/bao.jpg", alt="")
-                //-         li.box
-                //-             img(src="/app/static/images/t1.jpg", alt="")
-                //-         li.box
-                //-             img(src="/app/static/images/timg.jpg", alt="")
-                //-         li.box
-                //-             img(src="/app/static/images/bao.jpg", alt="")
-                //-         li.box
-                //-             img(src="/app/static/images/t1.jpg", alt="")    
-    //- script(src="/app/static/js/wook.js")
+            .grid.progrid
+                h4 in the press
+                ul#gul
+                    li.box(v-for="(item, index) in list.pressList")
+                        a(v-bind:href="'press_detail.html?id='+item.id")
+                            img(:src="item.httpPostImg", alt="")
+
+
+
+    script(src="/app/static/js/wook.js")
 
     script.
         var mymark = "abcsdfds.dfasd";
