@@ -12,6 +12,22 @@ p {
     height: 100%;
 }
 
+.community .myList .img {
+    position: relative;
+}
+
+.community .myList .img i {
+    display: block;
+    width: .27rem;
+    height: .27rem;
+    position: absolute;
+    z-index: 5;
+    background: url(/app/static/images/pop.png) no-repeat;
+    background-size: cover;
+    right: 0;
+    top: 0;
+}
+
 .nodata {
     &:before {
         width: 100%;

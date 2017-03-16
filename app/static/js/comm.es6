@@ -18,6 +18,7 @@ $(function() {
 
     var postSend = domain + '/post_send.html';
     var sendComment = domain + '/post_sendComment.html';
+    var delPost = domain + '/post_del.html';
 
     var getAcList = domain + '/announcement_getList.html';
     var getAcDetail = domain + '/announcement_getDetail.html';
@@ -27,7 +28,8 @@ $(function() {
     var getQuestion = domain + '/faq_getQuestion.html';
     var sendQuestion = domain + '/faq_sendQuestion.html';
 
-    var tmpPage = 1;
+    var aTmpPage = 1;
+    var myTmpPage = 1;
     var mytab = localStorage.getItem("mytab") || 1;
     var localIds = '';
     var vm = new Vue({
@@ -94,6 +96,7 @@ $(function() {
                 getDetailFn(pid);
             },
             sendCommentFn: function sendCommentFn(pid, list) {
+                this.comment = $.trim(this.comment);
                 if (this.comment.length > 0) {
                     _sendCommentFn(pid, this.comment, list);
                 } else {
@@ -108,15 +111,23 @@ $(function() {
                 this.acDetail = {};
             },
             sendReplyFn: function sendReplyFn() {
+                this.reply = $.trim(this.reply);
                 if (this.reply.length > 0) {
                     _sendReplyFn(this.acDetail.id, this.reply);
+                } else {
+                    msg("评论不能为空");
                 }
             },
             addHeart: function addHeart(pid, item) {
                 postHeartFn(pid, item);
             },
             sendQuestionFn: function sendQuestionFn(q) {
-                _sendQuestionFn(this.question);
+                this.question = $.trim(this.question);
+                if (this.question.length > 0) {
+                    _sendQuestionFn(this.question);
+                } else {
+                    msg("内容不能为空");
+                }
             },
             showQuestionForm: function showQuestionForm() {
                 this.qaflag = true;
@@ -174,6 +185,9 @@ $(function() {
                 };
                 reader.readAsDataURL(img);
             },
+            deleteFn: function(id, index) {
+                deletePostFn(id, index);
+            },
             postSendFn: function postSendFn() {
                 /*var canvas = $("#canvas")[0];
                 this.model.img64 = canvas.toDataURL("image/jpeg", 1);
@@ -190,6 +204,25 @@ $(function() {
             this.tabs(mytab);
         }
     });
+
+    function deletePostFn(id, index) {
+        $.ajax({
+            type: "POST",
+            url: delPost,
+            data: {
+                id: id
+            },
+            success: function(res) {
+                var data = JSON.parse(res);
+                if (data.status == 200) {
+                    //console.log(index);
+                    vm.myList.splice(index, 1);
+                    msg(data.data);
+                }
+
+            }
+        })
+    }
 
     function postHeartFn(id, item) {
         $.ajax({
@@ -226,7 +259,8 @@ $(function() {
             type: "POST",
             url: getList,
             data: {
-                type: type // 1全部列表 2我的列表
+                type: type, // 1全部列表 2我的列表
+                page: 1
             },
             success: function success(res) {
                 // res = '{"status":200,"data":[{"id":"1","userid":"rogerzhao","content":"为让同学们更深刻地感受「两美浙江」，由中国美术学院党委宣传部主办，中国美术学院设计艺术学院承办，组织开展「五水共治」主题海报征集活动。","image_name":"","heart":"1","status":"1","create_time":"2017-03-08 17:12:03","delete_time":"0000-00-00 00:00:00","httpPostImg":"\/app\/static\/images\/comm.png","commentList":[{"id":"1","userid":"SimonDing","pid":"1","content":"12312313","create_time":"2017-03-08 18:24:11","userArr":false}],"userArr":{"userid":"rogerzhao","name":"\u8d75\u6587\u9f99","avatar":"http:\/\/shp.qpic.cn\/bizmp\/UFadNArWOKiaApIgnFEyr2HzkqxvtjXW1Mgdoib3VRwLOm3PEavr54XQ\/","usercode":"001"}}],"totalPage":1}'
@@ -234,23 +268,88 @@ $(function() {
                 if (data.status == 200) {
                     if (type == 1) {
                         vm.aList = data.data;
+                        aListScroll = new IScroll($('.aList')[0], scrollOption);
                         vm.$nextTick(function() {
-                            aListScroll = new IScroll($('.aList')[0], scrollOption);
                             $('.aList').find("img").on("load", function() {
                                 aListScroll.refresh();
                             });
-
                             addEvent($('.aList')[0]);
                         });
+
+
+                        if (data.totalPage > 1) {
+                            aListScroll.on('scrollEnd', function() {
+                                aTmpPage++;
+                                if (aTmpPage > data.totalPage) {
+                                    return false;
+                                }
+                                $.ajax({
+                                    type: "POST",
+                                    url: getList,
+                                    data: {
+                                        type: 1,
+                                        page: aTmpPage
+                                    },
+                                    success: function(res) {
+                                        var data = JSON.parse(res);
+                                        if (data.status == 200) {
+                                            for (var i = 0; i < data.data.length; i++) {
+                                                vm.aList.push(data.data[i]);
+                                            };
+                                            vm.$nextTick(function() {
+                                                $('.aList').find("img").on("load", function() {
+                                                    aListScroll.refresh();
+                                                });
+                                            });
+                                        }
+
+                                    }
+                                })
+                            });
+                        }
+
+
                     } else {
                         vm.myList = data.data;
+
+                        myListScroll = new IScroll($('.myList')[0], scrollOption);
                         vm.$nextTick(function() {
-                            myListScroll = new IScroll($('.myList')[0], scrollOption);
                             $('.myList').find("img").on("load", function() {
                                 myListScroll.refresh();
                             });
                             addEvent($('.myList')[0]);
                         });
+
+                        if (data.totalPage > 1) {
+                            myListScroll.on('scrollEnd', function() {
+                                myTmpPage++;
+                                if (myTmpPage > data.totalPage) {
+                                    return false;
+                                }
+                                $.ajax({
+                                    type: "POST",
+                                    url: getList,
+                                    data: {
+                                        type: 2,
+                                        page: myTmpPage
+                                    },
+                                    success: function(res) {
+                                        var data = JSON.parse(res);
+                                        if (data.status == 200) {
+                                            for (var i = 0; i < data.data.length; i++) {
+                                                vm.myList.push(data.data[i]);
+                                            };
+                                            vm.$nextTick(function() {
+                                                $('.myList').find("img").on("load", function() {
+                                                    myListScroll.refresh();
+                                                });
+                                            });
+                                        }
+
+                                    }
+                                })
+                            });
+                        }
                     }
                 } else {
                     msg(data.data);
@@ -424,6 +523,13 @@ $(function() {
             success: function success(res) {
                 var data = JSON.parse(res);
                 if (data.status == 200) {
+                    var acLength = vm.acList.length;
+                    for (var i = 0; i < acLength; i++) {
+                        if (vm.acList[i].id == aid) {
+                            vm.acList[i].replyList.unshift(data.returnArr);
+                            break;
+                        }
+                    }
                     vm.reply = '';
                     vm.acDetail = {};
                 } else {
@@ -443,7 +549,12 @@ $(function() {
             success: function success(res) {
                 var data = JSON.parse(res);
                 if (data.status == 200) {
+                    var item = {
+                        question: question
+                    };
+                    vm.qaList.unshift(item);
                     vm.qaflag = false;
+                    vm.question = '';
                     msg(data.data);
                 } else {
                     msg(data.data);
